@@ -1,0 +1,1 @@
+Our proposal for the project is to make a web app that locates polling places that are available based on your location. It also displays the demographics of eligible voters and statistics of your surrounding area. There would be an interactive map that users can use to see the data of voter turnout from the past.

@@ -1,5 +1,4 @@
 ###### Storyboard
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
 
 ![Storyboard 1](https://github.com/aktov/COGS121/blob/master/Storyboard%201.jpg)
 ![Storyboard 2](https://github.com/aktov/COGS121/blob/master/Storyboard%202.jpg)

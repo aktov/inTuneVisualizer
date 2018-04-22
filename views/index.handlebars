@@ -2,86 +2,18 @@
 
 <html>
 <head>
-	<title>LAByrinth</title>	
+	<title>Hi</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
-	<link href="/css/bootstrap-theme.min.css" rel="stylesheet"> 
+	<link href="/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="/css/main.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
-	<div class="container" style="width: 80%">
-		<img src="/images/Prepd.png" id=title width="100%" height="auto" align="center" style="margin: 50px 0px 50px 0px">
-		
-		<br>
-		<h5 class="newAccount texts"> Username </h5>
-		<h5 style="display: none" class="newAccount texts"> 
-		Create Username </h5>
-		<input class="textbox" type="text" placeholder="    Enter Username" name="uname" required>
-		<br>
-		<h5 class="newAccount texts"> Password </h5>
-		<h5 style="display: none" class="newAccount texts"> 
-		Create Password </h5>
-		<input style="margin-bottom: 0px" class="textbox" type="password" placeholder="    Enter Password" name="psw" required>
-		<br>
-
-		<h5 style="display: none;" class="newAccount texts"> Confirm Password </h5>
-		<input style="display: none;" class="newAccount textbox" type="password" placeholder="    Enter Password Again" name="psw" required>
-		<br>
-
-		<label class="newAccount listLabel" style="font-size: 20px; text-align: center";>
-		  	<input style="border: none; width: 20px; height: 20px;margin-bottom: 20px" type="checkbox" checked="checked"> 
-			</input>
-			Remember me
-		</label>
-
-		<a href="home"> <button class="newAccount buttons" type="submit">LOGIN</button></a>
-		<!--<hr style="border-color: white; size: 3px;">-->
-
-		<h5 class="newAccount texts"> Or create a new account! </h5>
-		<button class="newAccount buttons" type="submit" onclick="toggle()">SIGN UP</button>
-
-		<a href="questions"> <button style="display: none;" class="newAccount buttons" type="submit" >CONTINUE</button></a>
-		
-		<br>
-
-		<!-- to hide the button -->
-		<script>
-		function toggle() {
-		    var elements = document.querySelectorAll('.newAccount');
-
-		    for (var i = 0; i < elements.length; i++) {
-		    	if (elements[i].style.display === "none") {
-		    		elements[i].style.display = "block";
-		    	}
-		    	else {
-		    		elements[i].style.display = "none";
-		    	}
-		    }
-		    console.log("ssd");
-		}
-		</script>
-
-		<!--
-			<img  id="logo" src="/images/Fire logo.png" alt="logo" style="margin-top: 40px">
-		-->
+	<p> There's nothing here yet... </p>
 
 
-	</div>
-	
-	<br />
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-114632773-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-114632773-2');
-</script>
-	
 </body>
 </html>

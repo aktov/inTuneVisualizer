@@ -9,19 +9,53 @@
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
 	<link href="/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="/css/main.css" type="text/css" rel="stylesheet">
+
+	<script src="/js/jquery-1.11.0.js"> </script>
+	<script src="/js/profiles.js"> </script>
+	<script type="text/javascript">
+
+	$(document).ready(() => {
+		console.log("Logged in as: " + sessionStorage.getItem("user"));
+		$('#showVisual1').click(() => {
+			window.location.href = '/views/visual.html';
+		});
+
+		$('#showVisual2').click(() => {
+			//$.ajax({
+				const friends = Object.values(profiles)[sessionStorage.getItem("userIndex")][1]
+				var i;
+				for (i = 0; i < friends.length; i++)  {
+					console.log(1);
+					const p = document.createElement("P");
+					const text = document.createTextNode(friends[i]);
+					p.appendChild(text);
+					document.getElementById('allprofiles').appendChild(p);
+				}
+			//});
+		});
+
+		$('#logout').click(() => {
+			forget();
+			window.location.href = '/index.html';
+		});
+	});
+	</script>
 </head>
 
 <body>
 	<div>
 		<p class="header"> </p>
 		<p class="title"> Home </p>
-		<p> A connection visualizer </p>
 
-	</div>
+		<p class="spacer" style="margin-top: 100px"> </p>
+		<input id="username" class="textbox" type="text" placeholder="Interested in ..." required>
+		<button id="showVisual1"> CREATE VISUAL 1</button>
+		<button id="showVisual2"> CREATE VISUAL 2</button>
 
-	<!-- Bottom text -->
-	<div style="position: absolute; bottom:5px; margin: 0; margin-left: 10px;">
-		<p class="small"> © Cogs 121 </p>
+		<div id="allprofiles"> </div>
+
+		<button id="logout"> LOG OUT </button>
+
 	</div>
 
 </body>

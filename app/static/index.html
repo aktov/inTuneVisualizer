@@ -11,9 +11,46 @@
 	<link href="/css/main.css" type="text/css" rel="stylesheet">
 
 	<script src="/js/jquery-1.11.0.js"> </script>
+	<script src="/js/profiles.js"> </script>
 	<script type="text/javascript">
+
 	$(document).ready(() => {
+		console.log("Logged in as: " + sessionStorage.getItem("user"));
 		$('#signin').click(() => {
+			const name = $('#username').val();
+			const pword = $('#password').val();
+
+			if (!name == "") {
+				$('#err3').hide();
+				var i;
+				for (i = 0; i < Object.keys(profiles).length; i++)  {
+					if (name == Object.keys(profiles)[i]) {
+						if (pword == Object.values(profiles)[i][0]) {
+							console.log("matched");
+							remember(name, i);
+							window.location.href = '/views/home.html';
+							$('#err1').hide();
+							$('#err2').hide();
+							$('#err3').hide();
+						}
+						else {
+							$('#err1').hide();
+							$('#err2').show();
+						}
+						break;
+					}
+					else {
+						console.log("profile DOESNT exist");
+						$('#err2').hide();
+						$('#err1').show();
+					}
+				}
+			}
+			else {
+				$('#err1').hide();
+				$('#err2').hide();
+				$('#err3').show();
+			}
 
 		});
 	});
@@ -26,14 +63,21 @@
 		<p class="title"> friend.o </p>
 		<p> A connection visualizer </p>
 
-
-
 		<p class="spacer" style="margin-top: 100px"> </p>
-		<input class="textbox" type="text" placeholder="Username" name="username" required>
-		<input class="textbox" type="text" placeholder="Password" name="password" required>
-		<a href='/views/home.html'>
-			<button id="signin"> SIGN IN </button>
-		</a>
+		<input id="username" class="textbox" type="text" placeholder="Username" required>
+		<input id="password" class="textbox" type="password" placeholder="Password" required>
+
+		<p id="err1" class="text" style="display: none; text-align:left; margin-left:30px">
+			Username not found
+		</p>
+		<p id="err2" class="text" style="display: none; text-align:left; margin-left:30px">
+			Password incorrect
+		</p>
+		<p id="err3" class="text" style="display: none; text-align:left; margin-left:30px">
+			Must enter in something
+		</p>
+
+		<button id="signin"> SIGN IN </button>
 		<button class="clear" style="margin-right: 35px"> Forgot password? </button>
 		<a href='/views/newUser.html'>
 			<button class="clear" style="margin-left: 35px"> Sign up </button>
@@ -44,7 +88,7 @@
 
 	<!-- Bottom text -->
 	<div style="position: absolute; bottom:5px; margin: 0; margin-left: 10px;">
-		<p class="small"> © Cogs 121 </p>
+		<p class="small"> Cogs 121 </p>
 	</div>
 
 </body>

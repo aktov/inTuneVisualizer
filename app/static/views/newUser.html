@@ -9,6 +9,67 @@
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
 	<link href="/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="/css/main.css" type="text/css" rel="stylesheet">
+
+	<script src="/js/jquery-1.11.0.js"> </script>
+	<script src="/js/profiles.js"> </script>
+	<script type="text/javascript">
+
+	$(document).ready(() => {
+		function hideAll() {
+			var elements = document.querySelectorAll('.text');
+
+			for (var i = 0; i < elements.length; i++) {
+					elements[i].style.display = "none";
+			}
+		}
+
+		$('#signup').click(() => {
+			const name = $('#username').val();
+			const pword = $('#password').val();
+			const cpword = $('#cpassword').val();
+
+			if (!name == "") {
+				var i;
+				for (i = 0; i < Object.keys(profiles).length; i++)  {
+					if (name != Object.keys(profiles)[i]) {
+						if (pword != "" && pword == cpword) {
+							console.log("success!");
+							profiles[name] = pword;
+							console.log(profiles);
+							remember(name, Object.values(profiles).length);
+							window.location.href = '/views/home.html';
+							hideAll();
+							break;
+						}
+						else if (pword == "") {
+							hideAll();
+							$('#err3').show();
+						}
+						else if (cpword == "") {
+							hideAll();
+							$('#err4').show();
+						}
+						else {
+							console.log("passwords do not match");
+							hideAll();
+							$('#err2').show();
+						}
+						break;
+					}
+					else {
+						console.log("profile name already used");
+						hideAll();
+						$('#err1').show();
+					}
+				}
+			}
+			else {
+				$('#err5').show();
+			}
+
+		});
+	});
+	</script>
 </head>
 
 <body>
@@ -17,16 +78,33 @@
 		<p class="title"> friend.o </p>
 
 		<p class="spacer" style="margin-top: 100px"> </p>
-		<input class="textbox" type="text" placeholder="Username" name="username" required>
-		<input class="textbox" type="text" placeholder="Password" name="password" required>
-		<input class="textbox" type="text" placeholder="Confirm Password" name="password" required>
-		<a href='/views/home.html'> <button> SIGN UP </button> </a>
+		<input id="username" class="textbox" type="text" placeholder="Username" required>
+		<input id="password" class="textbox" type="password" placeholder="Password" required>
+		<input id="cpassword" class="textbox" type="password" placeholder="Confirm Password" required>
+
+		<p id="err1" class="text" style="display: none; text-align:left; margin-left:30px">
+			Username already taken
+		</p>
+		<p id="err2" class="text" style="display: none; text-align:left; margin-left:30px">
+			Passwords do not match
+		</p>
+		<p id="err3" class="text" style="display: none; text-align:left; margin-left:30px">
+			Please create a password
+		</p>
+		<p id="err4" class="text" style="display: none; text-align:left; margin-left:30px">
+			Please confirm password
+		</p>
+		<p id="err5" class="text" style="display: none; text-align:left; margin-left:30px">
+			Must enter in something
+		</p>
+
+		<button id="signup"> SIGN UP </button>
 
 	</div>
 
 	<!-- Bottom text -->
 	<div style="position: absolute; bottom:5px; margin: 0; margin-left: 10px;">
-		<p class="small"> © Cogs 121 </p>
+		<p class="small"> Cogs 121 </p>
 	</div>
 
 </body>

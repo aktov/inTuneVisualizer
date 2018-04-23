@@ -8,10 +8,12 @@ const app = express();
 app.use(express.static('static'));
 // ----------------------------------------------------------------- //
 
-/*
-// [javascript] //
-const index = require('./static/views/index');
-*/
+const profiles = {
+  'Brandon': brandon,
+  'Alex': alex,
+  'Vanna': vanna,
+  'Jason': jason
+}
 
 // [html/handlebars] //
 app.get('/views', (req, res) => {

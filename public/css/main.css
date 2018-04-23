@@ -1,11 +1,89 @@
 @import url('https://fonts.googleapis.com/css?family=Questrial');
 
+body {
+  /*background-image: url("/images/background.png");*/
+  background-repeat: no-repeat;
+  background-size: 300px 300px;
+}
+
 div {
     text-align: center;
     margin: 20px;
 }
 
+
+/* Texts */
 p {
   font-family: Questrial;
   font-size: 30px;
+}
+
+p.title {
+  font-size: 70px;
+}
+
+p.subtitle {
+  font-size: 30px;
+}
+
+p.small {
+  font-size: 15px;
+}
+
+/* Buffers */
+p.header {
+  margin-top: 50px;
+}
+
+p.spacer {
+  margin-top: 20px;
+}
+
+p.footer {
+  margin-bottom: 50px;
+}
+
+/* Butons */
+button {
+  width: 85%;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  margin: 15px;
+
+  font-family: Questrial;
+  font-size: 20px;
+
+  background-color: #5084d8;
+  color: white;
+}
+
+button.clear {
+  width: auto;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 0px;
+
+  font-family: Questrial;
+  font-size: 20px;
+
+  background-color: white;
+  color: #5084d8;
+}
+
+
+.textbox {
+  width: 85%;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 12px 20px;
+
+  font-family: Questrial;
+  font-size: 20px;
+
+  background-color: #e5e5e5;
 }

@@ -17,7 +17,8 @@
     "url": "https://github.com/aktov/COGS121/issues"
   },
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "firebase": "^4.13.1"
   },
   "homepage": "https://github.com/aktov/COGS121#readme"
 }

@@ -1,0 +1,29 @@
+{
+  "name": "cogs121",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aktov/COGS121.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aktov/COGS121/issues"
+  },
+  "homepage": "https://github.com/aktov/COGS121#readme",
+  "dependencies": {
+    "@angular/common": "^4.4.7",
+    "@angular/core": "^5.2.10",
+    "@angular/http": "^4.4.7",
+    "@angular/platform-browser": "^4.4.7",
+    "angularx-social-login": "^1.1.8",
+    "firebase": "^4.13.1",
+    "rxjs": "^5.5.10",
+    "zone.js": "^0.8.26"
+  }
+}

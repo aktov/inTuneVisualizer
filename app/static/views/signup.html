@@ -1,0 +1,89 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <title>Hi</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+  <script type="text/javascript" src="/js/firebase.js"></script>
+  <script src="/js/jquery-1.11.0.js"> </script>
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="/css/main.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+  <div>
+    <p class="header"> </p>
+    <p class="title"> friend.o </p>
+
+    <p class="spacer" style="margin-top: 100px"> </p>
+    <input id="name" class="textbox" type="text" placeholder="Name" required>
+    <input id="email" class="textbox" type="email" placeholder="Email" required>
+    <input id="username" class="textbox" type="text" placeholder="Last.fm Username" required>
+    <input id="password" class="textbox" type="password" placeholder="Password" required>
+    <input id="cpassword" class="textbox" type="password" placeholder="Confirm Password" required>
+    
+    <p id="err1" class="text" style="display: none; text-align:left; margin-left:30px">
+        Username already taken
+    </p>
+    <p id="err2" class="text" style="display: none; text-align:left; margin-left:30px">
+      Passwords do not match
+    </p>
+    <p id="err3" class="text" style="display: none; text-align:left; margin-left:30px">
+      Please create a password
+    </p>
+    <p id="err4" class="text" style="display: none; text-align:left; margin-left:30px">
+      Please confirm password
+    </p>
+    <p id="err5" class="text" style="display: none; text-align:left; margin-left:30px">
+      Must enter in something
+    </p>
+    
+    <button id="signup" onclick="createUser()">SIGN UP</button>
+  </div>
+
+  <!-- Bottom text -->
+	<div style="position: absolute; bottom:5px; margin: 0; margin-left: 10px;">
+      <p class="small"> Cogs 121 </p>
+    </div>
+  		
+</body>
+
+<script>
+  var db;
+  $(window).load(function() {
+    db = firebase.database();
+  });
+
+  function createUser() {
+    let name = $('#name').val();
+    let user = $('#username').val();
+    let email = $('#email').val();
+    let pass1 = $('#password').val();
+    let pass2 = $('#cpassword').val();
+
+    
+    if (pass1 !== pass2) { $('#err2').show(); }
+    // use username to get Last.fm id
+
+    // get Last.fm userId to store user
+    else {
+      let userId = "654564";
+      db.ref('users/' + userId).set({
+        name: name,
+        username: user,
+        email: email,
+        password: pass1
+      });
+
+      window.location = '/views/home.html';
+    }
+  }
+</script>
+
+</html>

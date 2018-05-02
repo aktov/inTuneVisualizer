@@ -11,47 +11,39 @@
 	<link href="/css/main.css" type="text/css" rel="stylesheet">
 
 	<script src="/js/jquery-1.11.0.js"> </script>
-	<script src="/js/profiles.js"> </script>
+	<script src="/js/sessionstorage.js"> </script>
 	<script type="text/javascript">
 
 	$(document).ready(() => {
-		console.log("Logged in as: " + sessionStorage.getItem("user"));
+		//console.log("Logged in as: " + sessionStorage.getItem("user"));
 		$('#signin').click(() => {
-			const name = $('#username').val();
+			const email = $('#email').val();
 			const pword = $('#password').val();
 
-			if (!name == "") {
+			if (!email == "") {
 				$('#err3').hide();
-				var i;
-				for (i = 0; i < Object.keys(profiles).length; i++)  {
-					if (name == Object.keys(profiles)[i]) {
-						if (pword == Object.values(profiles)[i][0]) {
-							console.log("matched");
-							remember(name, i);
-							window.location.href = '/views/home.html';
-							$('#err1').hide();
-							$('#err2').hide();
-							$('#err3').hide();
-						}
-						else {
-							$('#err1').hide();
-							$('#err2').show();
-						}
-						break;
-					}
-					else {
-						console.log("profile DOESNT exist");
+				$.ajax({
+	        type: 'POST',
+	        url: '/login',
+	        data: {
+	          email: email,
+	          password: pword
+	        },
+	        success: (data) => {
+						console.log(data.uid);
+						remember(email, 1, data.uid);
+						console.log(sessionStorage.uid);
+						console.log("matched");
+						$('#err1').hide();
 						$('#err2').hide();
-						$('#err1').show();
-					}
-				}
+						$('#err3').hide();
+						window.location = '/views/home.html';
+	        },
+	        error: (code, message) => {
+	          console.log('Error');
+	        }
+	      });
 			}
-			else {
-				$('#err1').hide();
-				$('#err2').hide();
-				$('#err3').show();
-			}
-
 		});
 	});
 	</script>
@@ -64,11 +56,11 @@
 		<p> A connection visualizer </p>
 
 		<p class="spacer" style="margin-top: 100px"> </p>
-		<input id="username" class="textbox" type="text" placeholder="Username" required>
+		<input id="email" class="textbox" type="text" placeholder="Email" required>
 		<input id="password" class="textbox" type="password" placeholder="Password" required>
 
 		<p id="err1" class="text" style="display: none; text-align:left; margin-left:30px">
-			Username not found
+			Email not found
 		</p>
 		<p id="err2" class="text" style="display: none; text-align:left; margin-left:30px">
 			Password incorrect

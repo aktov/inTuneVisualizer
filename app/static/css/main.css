@@ -58,6 +58,33 @@ button {
   color: white;
 }
 
+button.row {
+  width: 85%;
+  height: 50px;
+  border-bottom: solid;
+  border-width: 1px;
+  border-radius: 3px;
+  margin: 0px;
+
+  font-family: Questrial;
+  font-size: 20px;
+  text-align: left;
+
+  background-color: white;
+  color: black;
+  border-color: #e5e5e5;
+}
+
+button.row img {
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+
+  max-height: 20px;
+}
+
 button.clear {
   width: auto;
   height: 50px;
@@ -87,4 +114,42 @@ button.clear {
   font-size: 20px;
 
   background-color: #e5e5e5;
+}
+
+
+/* navigation bar */
+.navbar {
+  margin: 0px;
+  overflow: hidden;
+  background-color: #e5e5e5;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.navbar a {
+  float: center;
+  width: 32%;
+  display: inline-block;
+  text-align: center;
+  padding: 5px 16px;
+  text-decoration: none;
+
+  font-family: Questrial;
+  font-size: 17px;
+}
+
+.navbar a.active {
+  background-color: #5084d8;
+  color: white;
+}
+
+.navbar img {
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+
+  max-height: 20px;
 }

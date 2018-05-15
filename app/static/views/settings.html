@@ -67,29 +67,34 @@
 <body>
 	<div>
 		<p class="header"> </p>
-		<p class="title"> Home </p>
+		<p class="title"> Settings </p>
 
 		<p class="spacer" style="margin-top: 100px"> </p>
-		<input id="username" class="textbox" type="text" placeholder="Interested in ..." required>
-		<button id="showVisual1"> CREATE VISUAL 1</button>
 
-<!--
-		<button id="showVisual2"> CREATE VISUAL 2</button>
--->
+		<button class="row">
+			<img src="../images/gear_white.png"> Account
+		</button>
+		<button class="row">
+			<img src="../images/note.png"> Last.fm Account
+		</button>
+		<button class="row">
+			<img src="../images/help.png"> Help
+		</button>
 
-		<button id="getTopTracks"> GET Top Tracks </button>
+		<br>
+		<br>
+		<button id="logout"> LOG OUT </button>
 
-		<div id="allprofiles"> </div>
 	</div>
 
 	<!-- navbar -->
 	<div class="navbar">
 		<a href="#null"> Null </a>
-		<a href="home.html" class="active">
-			<img src="../images/note_active.png"> Home
+		<a href="home.html">
+			<img src="../images/note.png"> Home
 		</a>
-		<a href="settings.html">
-			<img src="../images/gear.png"> Settings
+		<a href="settings.html" class="active">
+			<img src="../images/gear_active.png"> Settings
 		</a>
 	</div>
 

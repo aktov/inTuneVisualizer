@@ -33,7 +33,7 @@
 		});
 
 		//getFriends
-		$('#friend_show').click(() =>{
+/*		$('#friend_show').click(() =>{
 			console.log('Submit POST request to lastfm for friends');
 			const uid = sessionStorage.getItem('uid');
 			console.log(sessionStorage.getItem('uid'));
@@ -50,6 +50,27 @@
 					console.log('Error Message: ' + message);
 				}
 			})
+		});
+*/
+
+		$('#friend_show').click(() => {
+			if ($('#div_show').css('display') == 'none') {
+				$('#chev_friend_show').attr('class', 'chevron_up');
+				$('#div_show').show();}
+			else {
+				$('#chev_friend_show').attr('class', 'chevron_down');
+				$('#div_show').hide();}
+			//$.ajax({
+				const friends = Object.values(profiles)[sessionStorage.getItem("userIndex")][1]
+				var i;
+				for (i = 0; i < friends.length; i++)  {
+					console.log(1);
+					const p = document.createElement("P");
+					const text = document.createTextNode(friends[i]);
+					p.appendChild(text);
+					document.getElementById('allprofiles').appendChild(p);
+				}
+			//});
 		});
 
 		$('#friend_add').click(() => {
@@ -82,7 +103,12 @@
 		<!-- show friends -->
 		<button id="friend_show" class="row">
 			<img src="../images/people.png"> Show Friends
+			<img id="chev_friend_show" class="chevron_down" src="../images/chevron.png" style="float:right">
 		</button>
+		<div id="div_show" class="w_backgrnd" style="display: none;">
+			<div id="allprofiles" style="margin: 0px; margin-top: 10px;">
+			</div>
+		</div>
 		<!-- add friends -->
 		<button id="friend_add" class="row">
 			<img src="../images/addfriend.png"> Add Friend
@@ -95,7 +121,6 @@
 			</div>
 		</div>
 
-		<div id="allprofiles"> </div>
 
 		<p class="spacer" style="margin-top: 100px"> </p>
 	</div>

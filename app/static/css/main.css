@@ -69,7 +69,7 @@ p.small {
 
 /* Buffers */
 p.header {
-  margin-top: 50px;
+  margin-top: 25px;
 }
 
 p.spacer {
@@ -93,6 +93,33 @@ button {
 
   background-color: #5084d8;
   color: white;
+}
+
+button.home {
+  width: 85%;
+  height: 50px;
+  border-width: 0px;
+  border-radius: 5px;
+  margin: 0px;
+  margin-bottom: 10px;
+
+  font-family: Questrial;
+  font-size: 20px;
+  text-align: left;
+
+  background-color: #5084d8;
+  color: white;
+  border-color: #e5e5e5;
+}
+
+button.home img {
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+
+  max-height: 20px;
 }
 
 button.row {

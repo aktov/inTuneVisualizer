@@ -18,7 +18,7 @@ We updated the home page to better reflect some of our end functions.
 
 All screens also now include a navigation bar at the bottom.
 
-###### Non-trivial Actions
+# Non-trivial Actions
 
 Our core functionality is comprised of a few parts. Users will be able to look up their friends on Last.fm from our app, and then by selecting one of those friends, they will be able to see a list of that person's top tracks in additiona to a image patchwork representation of those top tracks. The image patchwork will consist of the album artwork of each track and will be implemented later.
 

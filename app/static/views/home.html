@@ -36,11 +36,6 @@
 			//});
 		});
 
-		$('#logout').click(() => {
-			forget();
-			window.location.href = '/index.html';
-		});
-
 		//getFriends
 		$('#getTopTracks').click(() =>{
 			console.log('Submit POST request to lastfm for friends');
@@ -60,6 +55,15 @@
 				}
 			})
 		});
+
+		$('#getFriendTracks').click(() => {
+			if ($('#div_add').css('display') == 'none') {
+				$('#chev_friend').attr('class', 'chevron_up');
+				$('#div_add').show();}
+			else {
+				$('#chev_friend').attr('class', 'chevron_down');
+				$('#div_add').hide();}
+		});
 	});
 	</script>
 </head>
@@ -71,11 +75,28 @@
 
 		<p class="spacer" style="margin-top: 25px"> </p>
 
-		<button id="showVisual1"> CREATE VISUAL 1</button>
+	</div>
 
-		<button id="getTopTracks"> GET Top Tracks </button>
+	<div style="margin: 0px;">
+		<!-- view tracks -->
+		<button id="getTopTracks" class="home">
+			<img src="../images/note_active.png"> View Your Top Tracks
+		</button>
 
-		<div id="allprofiles"> </div>
+		<!-- add friends -->
+		<button id="getFriendTracks" class="row">
+			<img src="../images/people.png"> View a Friend's Tracks
+			<img id="chev_friend" class="chevron_down" src="../images/chevron.png" style="float:right">
+		</button>
+		<div id="div_add" class="w_backgrnd" style="display: none;">
+			<div style="margin: 0px; margin-top: 10px;">
+				<input id="lastfm_email" class="textbox" type="text" placeholder="Username" required>
+				<button id="lastfm_account" style="margin-top: 0px;"> View </button>
+			</div>
+		</div>
+
+
+		<p class="spacer" style="margin-top: 100px"> </p>
 	</div>
 
 	<!-- navbar -->

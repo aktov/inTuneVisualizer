@@ -35,11 +35,18 @@ div #profile {
   background-color: #f5f5f5;
   margin: 20px;
   margin-top: 0px;
-  padding-bottom: 10px;
 
   display: inline-block;
   float: center;
   width: 85%;
+}
+
+div #profile img {
+  margin: 0px;
+  max-width: 100%;
+
+  display: inline-block;
+  float: center;
 }
 
 /* Texts */

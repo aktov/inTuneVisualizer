@@ -35,4 +35,6 @@ module.exports = {
       firebaseHelper.updateTopSongs(id, json.toptracks);
     })
   }
+
+  //getTopAlbumImage: function()
 }

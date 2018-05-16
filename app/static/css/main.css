@@ -11,6 +11,17 @@ div {
     margin: 20px;
 }
 
+div.w_backgrnd {
+  border: solid;
+  border-radius: 5px;
+  border-color: #5084d8;
+  margin: 20px;
+  margin-top: 0px;
+
+  display: inline-block;
+  float: center;
+  width: 85%;
+}
 
 /* Texts */
 p {
@@ -62,7 +73,7 @@ button.row {
   width: 85%;
   height: 50px;
   border-bottom: solid;
-  border-width: 1px;
+  border-width: 2px;
   border-radius: 3px;
   margin: 0px;
 
@@ -84,6 +95,39 @@ button.row img {
 
   max-height: 20px;
 }
+
+button.row img.chevron_down {
+  transform:          rotate(225deg);
+  -ms-transform:      rotate(225deg);
+  -moz-transform:     rotate(225deg);
+  -webkit-transform:  rotate(225deg);
+  -o-transform:       rotate(225deg);
+
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+
+  max-height: 13px;
+}
+
+button.row img.chevron_up {
+  transform:          rotate(45deg);
+  -ms-transform:      rotate(45deg);
+  -moz-transform:     rotate(45deg);
+  -webkit-transform:  rotate(45deg);
+  -o-transform:       rotate(45deg);
+
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 5px;
+  margin-top: 10px;
+
+  max-height: 13px;
+}
+
 
 button.clear {
   width: auto;

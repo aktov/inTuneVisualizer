@@ -35,6 +35,26 @@
 				}
 			//});
 		});
+		$('#logout').click(() => {
+			forget();
+			window.location.href = '/index.html';
+		});
+
+		/*
+		//getTopAlbumImage
+		$('#getTopAlbumImage').click(() =>{
+			console.log('Submit POST request to lastfm for album images')
+			const uid = sessionStorage.getItem('uid');
+			console.log(uid);
+			$.ajax({
+				type: 'POST',
+				url: 'topAlbums',
+				data: {
+
+				}
+			})
+		});
+		*/
 
 		//getFriends
 		$('#getTopTracks').click(() =>{

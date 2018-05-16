@@ -92,6 +92,13 @@ app.post('/topTracks', (req, res) => {
   })
 });
 
+/*
+app.post('/topAlbums', (req, res) => {
+
+
+})
+*/
+
 app.listen(3000, () => {
   console.log('Server started on http://localhost:3000/');
   db.ref('userProfile').once('value').then((snapshot) => {

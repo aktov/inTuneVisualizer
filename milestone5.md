@@ -1,19 +1,19 @@
 ###### Screenshots
 
 # Login Page
-![Login Screen](https://github.com/aktov/COGS121/blob/master/screen1_milestone5.png)
+![Login Screen](https://github.com/aktov/COGS121/blob/master/screen1_milestone5.png)<br />
 We changed the name of our app to better match our end goals.
 
 # People Page
-![People Page](https://github.com/aktov/COGS121/blob/master/screen2_milestone5.png)
+![People Page](https://github.com/aktov/COGS121/blob/master/screen2_milestone5.png)<br />
 Currently this is a filler image, but we will be able to pull aspects of a user's profile such as their picture and username.
 
 # Settings Page
-![Settings Page](https://github.com/aktov/COGS121/blob/master/screen3_milestone5.png)
+![Settings Page](https://github.com/aktov/COGS121/blob/master/screen3_milestone5.png)<br />
 We added a settings screen that will be home to account settings such as email preferences and Last.fm account details
 
 # Home Page
-![Home Page](https://github.com/aktov/COGS121/blob/master/screen4_milestone5.png)
+![Home Page](https://github.com/aktov/COGS121/blob/master/screen4_milestone5.png)<br />
 We updated the home page to better reflect some of our end functions. 
 
 All screens also now include a navigation bar at the bottom.

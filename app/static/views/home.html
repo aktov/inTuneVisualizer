@@ -16,6 +16,7 @@
 	<script type="text/javascript">
 
 	$(document).ready(() => {
+		let friendsToggle = true;
 		console.log("Logged in as: " + sessionStorage.getItem("user"));
 
 		$('#showVisual1').click(() => {
@@ -46,19 +47,28 @@
 			console.log('Submit POST request to lastfm for friends');
 			const uid = sessionStorage.getItem('uid');
 			console.log(sessionStorage.getItem('uid'));
-			$.ajax({
-				type : 'POST',
-				url: '/topTracks',
-				data: {
-					user: uid
-				},
-				success: (data) => {
-					console.log(data);
-				},
-				error: (code, message) => {
-					console.log('Error Message: ' + message);
-				}
-			})
+			if(friendsToggle == true){
+				$.ajax({
+					type : 'POST',
+					url: '/topTracks',
+					data: {
+						user: uid
+					},
+					success: (data) => {
+						let buffer = "";
+						for(var song in data){
+							buffer += "<li>" + data[song].name + "</li>";
+						}
+						$('#songList').html(buffer);
+						$('#songList').show();
+					},
+					error: (code, message) => {
+						console.log('Error Message: ' + message);
+					}
+				})
+			}else{
+				$('#songList').hide();
+			}
 		});
 	});
 	</script>
@@ -74,6 +84,10 @@
 		<button id="showVisual1"> CREATE VISUAL 1</button>
 		<button id="showVisual2"> CREATE VISUAL 2</button>
 		<button id="getTopTracks"> GET Top Tracks </button>
+		<ul>
+			<div id="songList">
+			</div>
+		</ul>
 
 		<div id="allprofiles"> </div>
 

@@ -2,9 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const firebase = require('firebase');
 
-const profiles = require('./static/js/profiles.js');
+const hash = require('./static/js/hash.js');
 const lastfm = require('./static/js/lastfm.js');
 const firebaseHelper = require('./static/js/firebase.js');
+const profile = require('./static/js/profile.js');
 
 const db = firebase.database();
 const app = express();
@@ -39,9 +40,8 @@ app.post('/signup', (req,res) => {
         username: req.body.username,
         name: req.body.name,
         email: req.body.email,
-        topTracks: {}
       });
-      lastfm.getTopTracks(req.body.username);
+      lastfm.updateTopTracks(req.body.username);
       res.sendStatus(201).end();
     })
     .catch((error) => {
@@ -65,7 +65,7 @@ app.post('/login', (req,res) => {
     .then((userRecord) =>{
       console.log(userRecord.uid);
       //lastfm.getTopSongs(userRecord.uid);
-      console.log('here');
+      lastfm.getTopSongs(keyId, username);
       res.send({uid: userRecord.uid});
     })
     .catch((error) => {
@@ -87,8 +87,8 @@ app.post('/topTracks', (req, res) => {
   console.log(req.body.user);
   db.ref('userProfile/' + req.body.user).once("value")
     .then((snapshot) => {
-      console.log(snapshot.val());
-      res.send(snapshot.val());
+      console.log(snapshot.val().topTracks);
+      res.send(snapshot.val().topTracks);
   })
 });
 
@@ -98,7 +98,8 @@ app.listen(3000, () => {
     snapshot.forEach((childId) => {
       let keyId = childId.key;
       let username = childId.val().username;
-      lastfm.getTopSongs(keyId, username);
+      profile.updateTopSongs(keyId, username);
+      profile.updateFriends(keyId, username);
     });
   });
 });

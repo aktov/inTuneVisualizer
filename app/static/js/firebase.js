@@ -116,6 +116,37 @@ module.exports = {
         resolve(snapshot.val());
       }, error => { reject('oops'); });
     })
+  },
+
+  getFriendId : function(friendUsername){
+    return new Promise((resolve, reject) => {
+      db.ref('UserHashes/' + friendUsername).once('value').then(snapshot => {
+        resolve(snapshot.val());
+      }, error => {
+        reject(error);
+      })
+    })
+  },
+
+  getTopSongs : function(id){
+    return new Promise((resolve, reject) => {
+      db.ref('userProfile/' + id + '/songs').once('value').then(snapshot => {
+        resolve(snapshot.val());
+      }, error => {
+        reject(error);
+      });
+    });
+  },
+
+  getTopTags : function(id){
+    return new Promise((resolve, reject) => {
+      db.ref('userProfile/' + id + '/topTracks').once('value').then(snapshot => {
+        resolve(snapshot.val());
+      }, error => {
+        reject(error);
+      });
+    });
   }
+
 
 }

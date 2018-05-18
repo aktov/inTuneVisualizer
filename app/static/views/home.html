@@ -17,6 +17,8 @@
 
 	$(document).ready(() => {
 		let friendsToggle = true;
+		let tagsToggle = true;
+
 		console.log("Logged in as: " + sessionStorage.getItem("user"));
 
 		$('#showVisual1').click(() => {
@@ -73,12 +75,13 @@
 						//console.log(data);
 						let buffer = "";
 						for(var song in data){
-							console.log(data[song]);
 							buffer += "<li>" + data[song] + "</li>";
 						}
 						$('#songList').html(buffer);
 						$('#songList').show();
 						friendsToggle = false;
+						$('#tagList').hide();
+						tagsToggle = true;
 					},
 					error: (code, message) => {
 						console.log('Error Message: ' + message);
@@ -91,6 +94,8 @@
 		});
 
 		$('#getFriendTracks').click(() => {
+			$('#songList').hide();
+			friendsToggle = true;
 			if ($('#div_add').css('display') == 'none') {
 				$('#chev_friend').attr('class', 'chevron_up');
 				$('#div_add').show();}
@@ -99,19 +104,36 @@
 				$('#div_add').hide();}
 		});
 
+		$('#lastfm_email').change(() => {
+			console.log('input changed');
+			$('#tagList').hide();
+			tagsToggle = true;
+		});
+
 		$('#lastfm_account').click(() => {
 			let friend = document.getElementById('lastfm_email').value;
 			console.log(friend);
 			const uid = sessionStorage.getItem('uid');
 			$.ajax({
 				type : 'POST',
-				url: '/getFriendsSongs',
+				url: '/getSimilarTags',
 				data: {
 					user: uid,
 					friend: friend
 				},
 				success: (data) => {
-					console.log(data);
+					if(tagsToggle == true){
+						let buffer = "";
+						for(var tag in data){
+							buffer += "<li>" + data[tag] + "</li>";
+						}
+						$('#tagList').html(buffer);
+						$('#tagList').show();
+						tagsToggle = false;
+					}else{
+						$('#tagList').hide();
+						tagsToggle = true;
+					}
 				},
 				error: (code, message) => {
 					console.log('Error Message: ' + message);
@@ -134,12 +156,12 @@
 	<div style="margin: 0px;">
 		<!-- view tracks -->
 		<button id="getTopTracks" class="home">
-			<img src="../images/note_active.png"> View Your Top Tracks
+			<img src="../images/note_active.png"> View Your Top Tags
 		</button>
 
 		<!-- add friends -->
 		<button id="getFriendTracks" class="row">
-			<img src="../images/people.png"> View a Friend's Tracks
+			<img src="../images/people.png"> View Your Friend's Similar Tags
 			<img id="chev_friend" class="chevron_down" src="../images/chevron.png" style="float:right">
 		</button>
 		<ul>
@@ -152,6 +174,11 @@
 				<input id="lastfm_email" class="textbox" type="text" placeholder="Username" required>
 				<button id="lastfm_account" style="margin-top: 0px;"> View </button>
 			</div>
+			<ul>
+				<div id="tagList">
+
+				</div>
+			</ul>
 		</div>
 
 

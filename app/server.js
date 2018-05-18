@@ -90,10 +90,13 @@ app.post('/topTracks', (req, res) => {
   })
 });
 
-app.post('/getFriendsSongs', (req, res) => {
-  profile.getFriendsSongs(req.body.user).then(result => {
-    res.send(result);
-  })
+app.post('/getSimilarTags', (req, res) => {
+  console.log(req.body.friend);
+  firebaseHelper.getFriendId(req.body.friend).then(result => {
+    profile.getSimilarTags(req.body.user, result).then(result => {
+      res.send(result);
+    })
+  });
 })
 /*
 app.post('/topAlbums', (req, res) => {

@@ -48,10 +48,29 @@ module.exports = {
     })
   },
 
-  getFriendsSongs : function(userId){
+  getFriends : function(userId){
     return new Promise((resolve, reject) => {
       firebaseHelper.getFriends(userId).then(result => {
         resolve(result);
+      }, error => {
+        reject(error);
+      });
+    })
+  },
+
+  getSimilarTags: function(userId, friendId){
+    return new Promise((resolve,reject) =>{
+      let p1 = firebaseHelper.getTopTags(userId);
+      let p2 = firebaseHelper.getTopTags(friendId);
+      Promise.all([p1,p2]).then(result => {
+        let similarTags = [];
+        let userIdKeys = Object.keys(result[0]);
+        for(key in userIdKeys){
+          if(result[1].hasOwnProperty(userIdKeys[key])){
+            similarTags.push(userIdKeys[key]);
+          }
+        }
+        resolve(similarTags);
       }, error => {
         reject(error);
       });

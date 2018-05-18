@@ -74,4 +74,5 @@ module.exports = {
   compareTops: function(id, user){
     console.log('hello');
   }
+
 }

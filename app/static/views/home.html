@@ -36,11 +36,26 @@
 				}
 			//});
 		});
-
 		$('#logout').click(() => {
 			forget();
 			window.location.href = '/index.html';
 		});
+
+		/*
+		//getTopAlbumImage
+		$('#getTopAlbumImage').click(() =>{
+			console.log('Submit POST request to lastfm for album images')
+			const uid = sessionStorage.getItem('uid');
+			console.log(uid);
+			$.ajax({
+				type: 'POST',
+				url: 'topAlbums',
+				data: {
+
+				}
+			})
+		});
+		*/
 
 		//getFriends
 		$('#getTopTracks').click(() =>{
@@ -70,6 +85,15 @@
 				$('#songList').hide();
 			}
 		});
+
+		$('#getFriendTracks').click(() => {
+			if ($('#div_add').css('display') == 'none') {
+				$('#chev_friend').attr('class', 'chevron_up');
+				$('#div_add').show();}
+			else {
+				$('#chev_friend').attr('class', 'chevron_down');
+				$('#div_add').hide();}
+		});
 	});
 	</script>
 </head>
@@ -79,20 +103,43 @@
 		<p class="header"> </p>
 		<p class="title"> Home </p>
 
-		<p class="spacer" style="margin-top: 100px"> </p>
-		<input id="username" class="textbox" type="text" placeholder="Interested in ..." required>
-		<button id="showVisual1"> CREATE VISUAL 1</button>
-		<button id="showVisual2"> CREATE VISUAL 2</button>
-		<button id="getTopTracks"> GET Top Tracks </button>
-		<ul>
-			<div id="songList">
+		<p class="spacer" style="margin-top: 25px"> </p>
+
+	</div>
+
+	<div style="margin: 0px;">
+		<!-- view tracks -->
+		<button id="getTopTracks" class="home">
+			<img src="../images/note_active.png"> View Your Top Tracks
+		</button>
+
+		<!-- add friends -->
+		<button id="getFriendTracks" class="row">
+			<img src="../images/people.png"> View a Friend's Tracks
+			<img id="chev_friend" class="chevron_down" src="../images/chevron.png" style="float:right">
+		</button>
+		<div id="div_add" class="w_backgrnd" style="display: none;">
+			<div style="margin: 0px; margin-top: 10px;">
+				<input id="lastfm_email" class="textbox" type="text" placeholder="Username" required>
+				<button id="lastfm_account" style="margin-top: 0px;"> View </button>
 			</div>
-		</ul>
+		</div>
 
-		<div id="allprofiles"> </div>
 
-		<button id="logout"> LOG OUT </button>
+		<p class="spacer" style="margin-top: 100px"> </p>
+	</div>
 
+	<!-- navbar -->
+	<div class="navbar">
+		<a href="people.html">
+			<img src="../images/people.png"> People
+		</a>
+		<a href="home.html" class="active">
+			<img src="../images/note_active.png"> Home
+		</a>
+		<a href="settings.html">
+			<img src="../images/gear.png"> Settings
+		</a>
 	</div>
 
 </body>

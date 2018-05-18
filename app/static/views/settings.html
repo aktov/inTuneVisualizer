@@ -1,0 +1,158 @@
+<!doctype html>
+
+<html>
+<head>
+	<title>Hi</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="/css/main.css" type="text/css" rel="stylesheet">
+
+	<script src="/js/jquery-1.11.0.js"></script>
+	<script src="/js/sessionstorage.js"> </script>
+
+	<script type="text/javascript">
+
+	$(document).ready(() => {
+		console.log("Logged in as: " + sessionStorage.getItem("user"));
+
+		$('#account').click(() => {
+			if ($('#div_account').css('display') == 'none') {
+				$('#div_account').show();}
+			else {$('#div_account').hide();}
+		});
+
+		$('#account_change_email').click(() => {
+			if ($('#account_div_change_email').css('display') == 'none') {
+				$('#account_chev_change_email').attr('class', 'chevron_up');
+				$('#account_div_change_email').show();}
+			else {
+				$('#account_chev_change_email').attr('class', 'chevron_down');
+				$('#account_div_change_email').hide();}
+		});
+
+		$('#change_pword').click(() => {
+			if ($('#div_change_pword').css('display') == 'none') {
+				$('#account_chev_change_pword').attr('class', 'chevron_up');
+				$('#div_change_pword').show();}
+			else {
+				$('#account_chev_change_pword').attr('class', 'chevron_down');
+				$('#div_change_pword').hide();}
+		});
+
+		$('#lastfm').click(() => {
+			if ($('#div_lastfm').css('display') == 'none') {
+				$('#div_lastfm').show();}
+			else {$('#div_lastfm').hide();}
+		});
+
+		$('#lastfm_change_email').click(() => {
+			if ($('#lastfm_div_change_email').css('display') == 'none') {
+				$('#lastfm_chev_change_email').attr('class', 'chevron_up');
+				$('#lastfm_div_change_email').show();}
+			else {
+				$('#lastfm_chev_change_email').attr('class', 'chevron_down');
+				$('#lastfm_div_change_email').hide();}
+		});
+
+		$('#showVisual2').click(() => {
+			//$.ajax({
+				const friends = Object.values(profiles)[sessionStorage.getItem("userIndex")][1]
+				var i;
+				for (i = 0; i < friends.length; i++)  {
+					console.log(1);
+					const p = document.createElement("P");
+					const text = document.createTextNode(friends[i]);
+					p.appendChild(text);
+					document.getElementById('allprofiles').appendChild(p);
+				}
+			//});
+		});
+
+		$('#logout').click(() => {
+			forget();
+			window.location.href = '/index.html';
+		});
+
+	});
+	</script>
+</head>
+
+<body>
+	<div>
+		<p class="header"> </p>
+		<p class="title"> Settings </p>
+
+		<p class="spacer" style="margin-top: 50px"> </p>
+	</div>
+
+	<div style="margin: 0px;">
+		<!-- account -->
+		<button id="account" class="row">
+			<img src="../images/gear_white.png"> Account
+		</button>
+			<div id="div_account" class="w_backgrnd" style="margin: 20px; margin-top: 0px; display: none;">
+				<button id="account_change_email" class="row">
+					Change Email <img id="account_chev_change_email" class="chevron_down" src="../images/chevron.png" style="float:right">
+				</button>
+				<div id="account_div_change_email" style="margin: 0px; margin-top: 10px; display: none;">
+					<input id="account_email" class="textbox" type="text" placeholder="New Email" required>
+					<button id="account_account" style="margin-top: 0px;"> Confirm </button>
+				</div>
+				<button id="change_pword" class="row">
+					Change Password <img id="account_chev_change_pword" class="chevron_down" src="../images/chevron.png" style="float:right">
+				</button>
+				<div id="div_change_pword" style="margin: 0px; margin-top: 10px; display: none;">
+					<input id="pword" class="textbox" type="password" placeholder="Password" required>
+					<input id="pword_new" class="textbox" type="password" placeholder="New Password" required>
+					<button id="account" style="margin-top: 0px;"> Confirm </button>
+				</div>
+			</div>
+
+		<!-- lastfm  -->
+		<button id="lastfm" class="row">
+			<img src="../images/note.png"> Last.fm Account
+		</button>
+		<div id="div_lastfm" class="w_backgrnd" style="display: none;">
+			<button id="lastfm_change_email" class="row">
+				Change Email <img id="lastfm_chev_change_email" class="chevron_down" src="../images/chevron.png" style="float:right">
+			</button>
+			<div id="lastfm_div_change_email" style="margin: 0px; margin-top: 10px; display: none;">
+				<input id="lastfm_email" class="textbox" type="text" placeholder="New Email" required>
+				<button id="lastfm_account" style="margin-top: 0px;"> Confirm </button>
+			</div>
+		</div>
+
+		<!-- help -->
+		<button class="row">
+			<img src="../images/help.png"> Help
+		</button>
+
+		<br>
+		<br>
+	</div>
+
+	<div>
+		<button id="logout"> LOG OUT </button>
+		<p class="spacer" style="margin-top: 100px"> </p>
+	</div>
+
+
+
+	<!-- navbar -->
+	<div class="navbar">
+		<a href="people.html">
+			<img src="../images/people.png"> People
+		</a>
+		<a href="home.html">
+			<img src="../images/note.png"> Home
+		</a>
+		<a href="settings.html" class="active">
+			<img src="../images/gear_active.png"> Settings
+		</a>
+	</div>
+
+</body>
+</html>

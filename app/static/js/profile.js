@@ -44,8 +44,17 @@ module.exports = {
       if(result.friends){
         firebaseHelper.updateFriends(userId, result.friends);
       }else{
-
       }
+    })
+  },
+
+  getFriendsSongs : function(userId){
+    return new Promise((resolve, reject) => {
+      firebaseHelper.getFriends(userId).then(result => {
+        resolve(result);
+      }, error => {
+        reject(error);
+      });
     })
   }
 }

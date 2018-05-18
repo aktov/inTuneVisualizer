@@ -64,8 +64,6 @@ app.post('/login', (req,res) => {
   firebase.auth().signInWithEmailAndPassword(email,pw)
     .then((userRecord) =>{
       console.log(userRecord.uid);
-      //lastfm.getTopSongs(userRecord.uid);
-      lastfm.getTopSongs(keyId, username);
       res.send({uid: userRecord.uid});
     })
     .catch((error) => {
@@ -84,14 +82,19 @@ app.post('/login', (req,res) => {
 });
 
 app.post('/topTracks', (req, res) => {
-  console.log(req.body.user);
+  //console.log(req.body);
   db.ref('userProfile/' + req.body.user).once("value")
     .then((snapshot) => {
-      console.log(snapshot.val().topTracks);
-      res.send(snapshot.val().topTracks);
+      console.log(Object.keys(snapshot.val().topTracks));
+      res.send(Object.keys(snapshot.val().topTracks));
   })
 });
 
+app.post('/getFriendsSongs', (req, res) => {
+  profile.getFriendsSongs(req.body.user).then(result => {
+    res.send(result);
+  })
+})
 /*
 app.post('/topAlbums', (req, res) => {
 

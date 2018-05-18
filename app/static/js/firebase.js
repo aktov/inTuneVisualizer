@@ -108,6 +108,14 @@ module.exports = {
         }
       })
     });
+  },
+
+  getFriends : function(userId){
+    return new Promise((resolve, reject) => {
+      db.ref('userProfile/' + userId + '/friends').once('value').then(snapshot => {
+        resolve(snapshot.val());
+      }, error => { reject('oops'); });
+    })
   }
 
 }

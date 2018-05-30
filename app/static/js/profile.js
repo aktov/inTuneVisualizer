@@ -1,8 +1,13 @@
 const lastfm = require('./lastfm.js');
 const firebaseHelper = require('./firebase.js');
 
+const genres = ['Hip-Hop', 'rap', 'rnb', 'indie', 'pop', 'trap', 'country', 'rock', 'oldies',
+'alternative', 'electronic', 'jazz', 'folk', 'blues', 'punk', 'punk rock', 'edm', 'dubstep', 'indie rock',
+'techno', 'orchestra', 'reggae', 'pop rock', 'metal', 'funk', 'classical', 'instrumental', 'korean', 'ballad',
+'acoustic', 'gospel', 'disco', 'soul', 'classic', 'hip hop'];
+
 module.exports = {
-  updateTopSongs : function(id, user, period='1month', limit=10){
+  updateTopSongs : function(id, user, period='1month', limit=50){
     //collect all the track info
     lastfm.getTopSongs(user,period,limit).then((result) => {
       let tracks = [];
@@ -14,12 +19,13 @@ module.exports = {
         return new Promise((resolve, reject) => {
           lastfm.getTrackInfo(id, user, song.name, song.artist.name).then((result) => {
             if(result){
+              let tags = module.exports.filterTags(result.tracks.toptags);
               song = {
                 name: result.tracks.name,
                 artist: result.tracks.artist.name,
                 playcount: result.tracks.playcount,
                 url: result.tracks.url,
-                tags: result.tracks.toptags
+                tags: tags
               };
               resolve(song);
             }else{
@@ -75,5 +81,16 @@ module.exports = {
         reject(error);
       });
     })
+  },
+
+  filterTags : function(tags){
+    let filteredTags = [];
+    let allTags = tags.tag;
+    for(tag in allTags){
+      if(genres.includes(allTags[tag].name)){
+        filteredTags.push(allTags[tag].name);
+      }
+    }
+    return filteredTags
   }
 }

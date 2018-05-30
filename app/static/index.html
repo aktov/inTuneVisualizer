@@ -30,14 +30,11 @@
 	          password: pword
 	        },
 	        success: (data) => {
-						console.log(data.uid);
 						remember(email, 1, data.uid);
-						console.log('sessionStorage' + sessionStorage.uid);
-						console.log("matched");
 						$('#err1').hide();
 						$('#err2').hide();
 						$('#err3').hide();
-						window.location = '/views/home.html';
+						//window.location = '/views/home.html';
 	        },
 	        error: (code, message) => {
 	          console.log('Error');

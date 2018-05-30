@@ -22,16 +22,15 @@ module.exports = {
       let topTracksRef = db.ref('userProfile/' + userId + '/topTracks');
       if(songSize > 0){
         module.exports.songExists(userId, song).then(result => {
-          module.exports.pushSong(userId, song);
+          module.exports.pushSong(userId, song, result.hashId);
         }, error => {
-          //console.log("song exists");
         });
       }else{
       }
     })
   },
 
-  songExists : function(userId, song, hashId){
+  songExists : function(userId, song){
     return new Promise((resolve, reject) => {
       let hashId = Hash.hash(JSON.stringify({song: song.name, artist: song.artist.name}));
       db.ref('userProfile/' +userId).once('value').then((snapshot) => {
@@ -39,52 +38,49 @@ module.exports = {
           if(snapshot.val().songs.hasOwnProperty(hashId)){
             reject({exists: true});
           }else{
-            resolve({exists: false});
+            resolve({hashId: hashId});
           }
         }else{
           db.ref('userProfile/' + userId + '/songs').set({
             length : 0
           });
-          resolve({exists: false});
+          resolve({hashId: hashId});
         }
       });
     });
   },
 
-  pushSong : function(userId, song){
-    let tags = song.tags.tag;
-    let pushKey = 0;
+  pushSong : function(userId, song, hashId){
+    let tags = song.tags;
     if(tags.length > 0){
       for(tag in tags){
-        pushKey = db.ref('userProfile/' + userId + '/topTracks').child(tags[tag].name).push({
+        pushKey = db.ref('userProfile/' + userId + '/topTracks/' + tags[tag]).child(hashId).set({
           name: song.name,
           playcount: song.playcount,
           artist: song.artist,
           url: song.url
-        }).key;
+        });
+        module.exports.pushSongHash(userId, tags[tag], hashId);
       }
     }else{
-      pushKey = db.ref('userProfile/' + userId + '/topTracks').child('other').push({
+      pushKey = db.ref('userProfile/' + userId + '/topTracks/other').child(hashId).set({
         name: song.name,
         playcount: song.playcount,
         artist: song.artist,
         url: song.url
-      }).key;
+      });
+      module.exports.pushSongHash(userId, 'other', hashId);
     }
-    module.exports.pushSongHash(userId, song, pushKey);
   },
 
-  pushSongHash : function(userId, song, pushKey){
-    let hashId = Hash.hash(JSON.stringify({song: song.name, artist: song.artist.name}));
-    db.ref('userProfile/' + userId +'/songs/').child(hashId).set({
-      pushId: pushKey
-    });
+  pushSongHash : function(userId, tag, hashId){
+    db.ref('userProfile/' + userId +'/songs/' + hashId).child(tag).set("true");
   },
 
   updateFriends : function(userId, friendList){
     for(friend in friendList.user){
       module.exports.friendExists(userId, friendList.user[friend].name).then(result => {
-        console.log(friendList.user[friend].name);
+        //console.log(friendList.user[friend].name);
         db.ref('userProfile/' + userId + '/friends/' + friendList.user[friend].name).set('true');
       }, error => {
       })
@@ -136,17 +132,5 @@ module.exports = {
         reject(error);
       });
     });
-  },
-
-  getTopTags : function(id){
-    return new Promise((resolve, reject) => {
-      db.ref('userProfile/' + id + '/topTracks').once('value').then(snapshot => {
-        resolve(snapshot.val());
-      }, error => {
-        reject(error);
-      });
-    });
   }
-
-
 }

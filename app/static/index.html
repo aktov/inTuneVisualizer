@@ -31,13 +31,15 @@
 	        },
 	        success: (data) => {
 						console.log('hello');
-						console.log(data);
+						console.log(email);
 						remember(email, 1, data.uid);
 						$('#err1').hide();
 						$('#err2').hide();
 						$('#err3').hide();
 						$('#err4').hide();
 						window.location.href = 'views/home.html';
+						//profile.updateTopSongs(data.uid, email);
+			      //profile.updateFriends(data.uid, email);
 	        },
 	        error: (err) => {
 						$('#err1').hide();

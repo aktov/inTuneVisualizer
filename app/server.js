@@ -64,20 +64,10 @@ app.post('/login', (req,res) => {
   firebase.auth().signInWithEmailAndPassword(email,pw)
     .then((userRecord) =>{
       console.log(userRecord.uid);
+      res.status(200);
       res.send({uid: userRecord.uid});
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      if(errorCode == 'auth/user-not-found'){
-        console.log('User not found');
-      }else if(errorCode == 'auth/invalid-email'){
-        console.log('Invalid email');
-      }else if(errorCode == 'auth/wrong-password'){
-        console.log('Wrong Password');
-      }else{
-        console.log(error.message);
-      }
-      console.log(error);
+    }, error => {
+      res.status(400);
       res.send(error);
     });
 });

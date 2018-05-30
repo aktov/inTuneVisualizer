@@ -30,16 +30,41 @@
 	          password: pword
 	        },
 	        success: (data) => {
+						console.log('hello');
+						console.log(data);
 						remember(email, 1, data.uid);
 						$('#err1').hide();
 						$('#err2').hide();
 						$('#err3').hide();
-						//window.location = '/views/home.html';
+						$('#err4').hide();
+						window.location.href = 'views/home.html';
 	        },
-	        error: (code, message) => {
-	          console.log('Error');
+	        error: (err) => {
+						$('#err1').hide();
+						$('#err2').hide();
+						$('#err3').hide();
+						$('#err4').hide();
+						const errorCode = err.responseJSON.code;
+			      if(errorCode == 'auth/user-not-found'){
+			        console.log('User not found');
+							$('#err1').show();
+			      }else if(errorCode == 'auth/invalid-email'){
+			        console.log('Invalid email');
+							$('#err4').show();
+			      }else if(errorCode == 'auth/wrong-password'){
+			        console.log('Wrong Password');
+							$('#err2').show();
+			      }else{
+			        console.log(error.message);
+			      }
 	        }
 	      });
+			}else{
+				$('#err1').hide();
+				$('#err2').hide();
+				$('#err3').hide();
+				$('#err4').hide();
+				$('#err3').show();
 			}
 		});
 	});
@@ -64,6 +89,9 @@
 		</p>
 		<p id="err3" class="text" style="display: none; text-align:left; margin-left:30px">
 			Must enter in something
+		</p>
+		<p id="err4" class="text" style="display: none; text-align:left; margin-left:30px">
+			Invalid email
 		</p>
 
 		<button id="signin"> SIGN IN </button>

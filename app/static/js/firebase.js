@@ -27,7 +27,7 @@ module.exports = {
         });
       }else{
       }
-    })
+    });
   },
 
   songExists : function(userId, song){
@@ -80,7 +80,6 @@ module.exports = {
   updateFriends : function(userId, friendList){
     for(friend in friendList.user){
       module.exports.friendExists(userId, friendList.user[friend].name).then(result => {
-        //console.log(friendList.user[friend].name);
         db.ref('userProfile/' + userId + '/friends/' + friendList.user[friend].name).set('true');
       }, error => {
       })
@@ -126,7 +125,17 @@ module.exports = {
 
   getTopSongs : function(id){
     return new Promise((resolve, reject) => {
-      db.ref('userProfile/' + id + '/songs').once('value').then(snapshot => {
+      db.ref('userProfile/' + id + '/topTracks').once('value').then(snapshot => {
+        resolve(snapshot.val());
+      }, error => {
+        reject(error);
+      });
+    });
+  },
+
+  getUsername : function(id){
+    return new Promise((resolve, reject) => {
+      db.ref('userProfile/' + id + '/username').once('value').then(snapshot => {
         resolve(snapshot.val());
       }, error => {
         reject(error);

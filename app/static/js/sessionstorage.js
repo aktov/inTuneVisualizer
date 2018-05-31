@@ -12,3 +12,7 @@ function forget() {
   sessionStorage.userIndex = "blank";
   sessionStorage.uid = "blank";
 }
+
+function savePieChartData(data){
+  sessionStorage.setItem('data', data);
+}

@@ -9,39 +9,42 @@ const genres = ['Hip-Hop', 'rap', 'rnb', 'indie', 'pop', 'trap', 'country', 'roc
 module.exports = {
   updateTopSongs : function(id, user, period='1month', limit=50){
     //collect all the track info
-    lastfm.getTopSongs(user,period,limit).then((result) => {
-      let tracks = [];
-      for(song in result.toptracks.track){
-        tracks.push(result.toptracks.track[song]);
-      }
+    return new Promise((resolve, reject) => {
+      lastfm.getTopSongs(user,period,limit).then((result) => {
+        let tracks = [];
+        for(song in result.toptracks.track){
+          tracks.push(result.toptracks.track[song]);
+        }
 
-      let newTracks = Promise.all(tracks.map((song) => {
-        return new Promise((resolve, reject) => {
-          lastfm.getTrackInfo(id, user, song.name, song.artist.name).then((result) => {
-            if(result){
-              let tags = module.exports.filterTags(result.tracks.toptags);
-              song = {
-                name: result.tracks.name,
-                artist: result.tracks.artist.name,
-                playcount: result.tracks.playcount,
-                url: result.tracks.url,
-                tags: tags
-              };
-              resolve(song);
-            }else{
-              song = {};
-              resolve(song);
-            }
-          }, error => {
-            //console.log("error handdled here");
-            reject("error handled here");
+        let newTracks = Promise.all(tracks.map((song) => {
+          return new Promise((resolve, reject) => {
+            lastfm.getTrackInfo(id, user, song.name, song.artist.name).then((result) => {
+              if(result){
+                let tags = module.exports.filterTags(result.tracks.toptags);
+                song = {
+                  name: result.tracks.name,
+                  artist: result.tracks.artist.name,
+                  playcount: result.tracks.userplaycount,
+                  url: result.tracks.url,
+                  tags: tags
+                };
+                resolve(song);
+              }else{
+                song = {};
+                resolve(song);
+              }
+            }, error => {
+              //console.log("error handdled here");
+              reject("error handled here");
+            });
           });
-        });
-      })).then(data => {
-        firebaseHelper.updateTopSongs(id, data);
-      }, error => {
-        console.log('rejected some');
-      })
+        })).then(data => {
+          firebaseHelper.updateTopSongs(id, data);
+        }, error => {
+          reject();
+          console.log('rejected some');
+        })
+      });
     })
   },
 

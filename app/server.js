@@ -63,9 +63,12 @@ app.post('/login', (req,res) => {
   console.log('login attempted')
   firebase.auth().signInWithEmailAndPassword(email,pw)
     .then((userRecord) =>{
-      console.log(userRecord.uid);
-      res.status(200);
-      res.send({uid: userRecord.uid});
+      firebaseHelper.getUsername(userRecord.uid).then(username => {
+        profile.updateTopSongs(userRecord.uid, username);
+        profile.updateFriends(userRecord.uid, username);
+        res.status(200);
+        res.send({uid: userRecord.uid, username: username});
+      });
     }, error => {
       res.status(400);
       res.send(error);
@@ -73,12 +76,9 @@ app.post('/login', (req,res) => {
 });
 
 app.post('/topTracks', (req, res) => {
-  //console.log(req.body);
-  db.ref('userProfile/' + req.body.user).once("value")
-    .then((snapshot) => {
-      console.log(Object.keys(snapshot.val().topTracks));
-      res.send(Object.keys(snapshot.val().topTracks));
-  })
+  firebaseHelper.getTopSongs(req.body.user).then(result => {
+    res.send(result);
+  });
 });
 
 app.post('/getSimilarTags', (req, res) => {
@@ -98,6 +98,7 @@ app.post('/topAlbums', (req, res) => {
 
 app.listen(3000, () => {
   console.log('Server started on http://localhost:3000/');
+  /*
   db.ref('userProfile').once('value').then((snapshot) => {
     snapshot.forEach((childId) => {
       let keyId = childId.key;
@@ -105,5 +106,5 @@ app.listen(3000, () => {
       profile.updateTopSongs(keyId, username);
       profile.updateFriends(keyId, username);
     });
-  });
+  });*/
 });

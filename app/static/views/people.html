@@ -18,19 +18,19 @@
 	$(document).ready(() => {
 		console.log("Logged in as: " + sessionStorage.getItem("user"));
 
-		$('#showVisual2').click(() => {
-			//$.ajax({
-				const friends = Object.values(profiles)[sessionStorage.getItem("userIndex")][1]
-				var i;
-				for (i = 0; i < friends.length; i++)  {
-					console.log(1);
-					const p = document.createElement("P");
-					const text = document.createTextNode(friends[i]);
-					p.appendChild(text);
-					document.getElementById('allprofiles').appendChild(p);
-				}
-			//});
-		});
+		// $('#showVisual2').click(() => {
+		// 	//$.ajax({
+		// 		const friends = Object.values(profiles)[sessionStorage.getItem("userIndex")][1]
+		// 		var i;
+		// 		for (i = 0; i < friends.length; i++)  {
+		// 			console.log(1);
+		// 			const p = document.createElement("P");
+		// 			const text = document.createTextNode(friends[i]);
+		// 			p.appendChild(text);
+		// 			document.getElementById('allprofiles').appendChild(p);
+		// 		}
+		// 	//});
+		// });
 
 		//getFriends
 /*		$('#friend_show').click(() =>{
@@ -111,7 +111,7 @@
 		</div>
 		<!-- add friends -->
 		<button id="friend_add" class="row">
-			<img src="../images/addfriend.png"> Add Friend
+			<img src="../images/addfriend.png"> Add Friends
 			<img id="chev_friend_add" class="chevron_down" src="../images/chevron.png" style="float:right">
 		</button>
 		<div id="div_add" class="w_backgrnd" style="display: none;">

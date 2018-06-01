@@ -13,3 +13,7 @@ function loadPieChart(chart, data){
     columns: columns
   });
 }
+
+function pieChartOnClick(data){
+
+}

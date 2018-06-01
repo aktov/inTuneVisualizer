@@ -38,7 +38,23 @@
 	        onmouseout: function (d, i) { console.log("onmouseout", d, i); }
 	    }
 		});
-		pieChart.hide();
+
+		let friendsPieChart = c3.generate({
+			bindto: '#friendsPieChart',
+	    data: {
+	        // iris data from R
+	        columns: [
+	            ['data1', 30],
+	            ['data2', 120],
+	        ],
+	        type : 'pie',
+	        onclick: function (d, i) { console.log("onclick", d, i); },
+	        onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+	        onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+	    }
+		});
+		$('#pieChart').hide();
+		$('#friendsPieChart').hide();
 		console.log("Logged in as: " + sessionStorage.getItem("user"));
 
 		$('#showVisual1').click(() => {
@@ -92,6 +108,7 @@
 						user: uid
 					},
 					success: (data) => {
+						savePieChartData(data);
 						setTimeout(function () {
 						    pieChart.unload({
 						        ids: 'data1'
@@ -101,7 +118,7 @@
 						    });
 						}, 	500);
 						loadPieChart(pieChart,data);
-						pieChart.show();
+						$('#pieChart').show();
 						friendsToggle = false;
 					},
 					error: (code, message) => {
@@ -109,7 +126,7 @@
 					}
 				})
 			}else{
-				pieChart.hide();
+				$('#pie').hide();
 				friendsToggle = true;
 			}
 		});
@@ -117,7 +134,27 @@
 		$('#getFriendTracks').click(() => {
 			$('#songList').hide();
 			friendsToggle = true;
+			const uid = sessionStorage.getItem('uid');
 			if ($('#div_add').css('display') == 'none') {
+				$.ajax({
+					type : 'POST',
+					url: '/getFriends',
+					data: {
+						user: uid,
+					},
+					success: (data) => {
+						let buffer="";
+						let keys = Object.keys(data)
+						for(key in keys){
+							console.log(keys[key]);
+							buffer += "<li>" + keys[key] +"</li>";
+						}
+						$('#friendList').html(buffer);
+					},
+					error: (code, message) => {
+						console.log('Error Message: ' + message);
+					}
+				});
 				$('#chev_friend').attr('class', 'chevron_up');
 				$('#div_add').show();}
 			else {
@@ -137,12 +174,22 @@
 			const uid = sessionStorage.getItem('uid');
 			$.ajax({
 				type : 'POST',
-				url: '/getSimilarTags',
+				url: '/getSimilarSongs',
 				data: {
 					user: uid,
 					friend: friend
 				},
 				success: (data) => {
+					setTimeout(function () {
+							friendsPieChart.unload({
+									ids: 'data1'
+							});
+							friendsPieChart.unload({
+									ids: 'data2'
+							});
+					}, 	500);
+					loadPieChart(friendsPieChart,data[1]);
+					$('#friendsPieChart').show();
 					console.log(data);
 				},
 				error: (code, message) => {
@@ -178,15 +225,14 @@
 
 		<div id="div_add" class="w_backgrnd" style="display: none;">
 			<div style="margin: 0px; margin-top: 10px;">
+				<ul>
+					<div id="friendList"></div>
+				</ul>
 				<input id="lastfm_email" class="textbox" type="text" placeholder="Username" required>
 				<button id="lastfm_account" style="margin-top: 0px;"> View </button>
 			</div>
-			<ul>
-				<div id="tagList">
-
-				</div>
-			</ul>
 		</div>
+		<div id="friendsPieChart"></div>
 
 
 		<p class="spacer" style="margin-top: 100px"> </p>

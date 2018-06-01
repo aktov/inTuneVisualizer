@@ -79,6 +79,7 @@ module.exports = {
 
   updateFriends : function(userId, friendList){
     for(friend in friendList.user){
+      console.log(friendList.user[friend]);
       module.exports.friendExists(userId, friendList.user[friend].name).then(result => {
         db.ref('userProfile/' + userId + '/friends/' + friendList.user[friend].name).set('true');
       }, error => {
@@ -96,9 +97,6 @@ module.exports = {
             resolve({exists: false});
           }
         }else{
-          db.ref('userProfile/' + userId + '/friends').set({
-            length : 0
-          });
           resolve({exists: false});
         }
       })

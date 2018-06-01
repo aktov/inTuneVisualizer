@@ -24,6 +24,7 @@
 	$(document).ready(() => {
 		let friendsToggle = true;
 		let tagsToggle = true;
+		let gaugeChart = generateGauge('#gaugeChart');
 		let pieChart = c3.generate({
 			bindto: '#pieChart',
 	    data: {
@@ -53,49 +54,10 @@
 	        onmouseout: function (d, i) { console.log("onmouseout", d, i); }
 	    }
 		});
+		$('#gaugeChart').hide();
 		$('#pieChart').hide();
 		$('#friendsPieChart').hide();
 		console.log("Logged in as: " + sessionStorage.getItem("user"));
-
-		/*
-		$('#showVisual1').click(() => {
-			window.location.href = '/views/visual.html';
-		});
-
-		$('#showVisual2').click(() => {
-			//$.ajax({
-				const friends = Object.values(profiles)[sessionStorage.getItem("userIndex")][1]
-				var i;
-				for (i = 0; i < friends.length; i++)  {
-					console.log(1);
-					const p = document.createElement("P");
-					const text = document.createTextNode(friends[i]);
-					p.appendChild(text);
-					document.getElementById('allprofiles').appendChild(p);
-				}
-			//});
-		});
-		$('#logout').click(() => {
-			forget();
-			window.location.href = '/index.html';
-		});
-		*/
-
-		/*
-		//getTopAlbumImage
-		$('#getTopAlbumImage').click(() =>{
-			console.log('Submit POST request to lastfm for album images')
-			const uid = sessionStorage.getItem('uid');
-			console.log(uid);
-			$.ajax({
-				type: 'POST',
-				url: 'topAlbums',
-				data: {
-
-				}
-			})
-		});
-		*/
 
 		//getFriends
 		$('#getTopTracks').click(() =>{
@@ -191,7 +153,28 @@
 							});
 					}, 	500);
 					loadPieChart(friendsPieChart,data[1]);
+					if(data[2].length > 0){
+						let similarTagsBuffer = "";
+						for(tag in data[2]){
+							similarTagsBuffer += data[2][tag] + ", ";
+						}
+						$('#similarTags').html("Similar tags with " + friend + ": " + similarTagsBuffer);
+					}else{
+						$('#similarTags').html("No tags in common");
+					}
+
+					if(data[3].length > 0){
+						let similarSongsBuffer = "";
+						for(song in data[2]){
+							similarSongsBuffer += song;
+						}
+						$('#similarSongs').html("Similar songs with " + friend + ": " + similarTagsBuffer);
+					}else{
+						$('#similarSongs').html("No songs in common");
+					}
 					$('#friendsPieChart').show();
+					loadGauge(gaugeChart, data[4]);
+					$('#gaugeChart').show();
 					console.log(data);
 				},
 				error: (code, message) => {
@@ -235,7 +218,9 @@
 			</div>
 		</div>
 		<div id="friendsPieChart"></div>
-
+		<div id="gaugeChart"></div>
+		<div id="similarTags"></div>
+		<div id="similarSongs"></div>
 
 		<p class="spacer" style="margin-top: 100px"> </p>
 	</div>

@@ -88,10 +88,32 @@ app.post('/getFriends', (req, res) => {
 });
 
 app.post('/getSimilarSongs', (req, res) => {
+  let currentWeight = 0;
+  const weight = 250;
+  let similarTags = [];
+  let similarSongs = [];
   firebaseHelper.getFriendId(req.body.friend).then(result => {
     let p1 = firebaseHelper.getTopSongs(req.body.user);
     let p2 = firebaseHelper.getTopSongs(result);
     Promise.all([p1,p2]).then(data=>{
+      for(genre in data[0]){
+        let data1Keys = Object.keys(data[1]);
+        if(data1Keys.includes(genre)){
+          similarTags.push(genre);
+          let genreKeys = Object.keys(data[1][genre]);
+          currentWeight += 5;
+          for(song in data[0][genre]){
+            //console.log(data[0][genre][song]);
+            if(genreKeys.includes(data[0][genre][song])){
+              console.log(data[0][genre][song].name);
+              currentWeight += 10;
+            }
+          }
+        }
+      }
+      data[2] = similarTags;
+      data[3] = similarSongs;
+      data[4] = currentWeight;
       res.send(data);
     })
   });

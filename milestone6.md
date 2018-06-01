@@ -18,7 +18,8 @@ We added the beginning of our visualization for the data we are examining.
 We added a drop down to certain options that will eventually allow users to change their account settings.
 
 # Data Visualizations
-![Data Visualizations](https://github.com/aktov/COGS121/blob/master/dataVis1.png)(https://github.com/aktov/COGS121/blob/master/dataVis2.png)<br />
+![Data Visualizations](https://github.com/aktov/COGS121/blob/master/dataVis1.png)
+![Data Visualizations](https://github.com/aktov/COGS121/blob/master/dataVis2.png)<br />
 The first screen shows a percentage breakdown of a user's top track's tags. Essentially this is a categorical breakdown of what types of music you listen to.
 The second screen shows that a user can highlight certain pie chart slices in order to specify the percent related to a specific genre.
 

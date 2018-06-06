@@ -133,7 +133,7 @@ app.post('/getSimilarSongs', (req, res) => {
 app.post('/addFriends', (req, res) => {
   let newFriend = req.body.friend;
   let userID = req.body.uid;
-  db.ref('userProfile/' + userID + '/friends/' + newFriend).set({newFriend: "true"});
+  db.ref('userProfile/' + userID + '/friends/' + newFriend).set("true");
   res.send("Friend Added Successfully!")
 });
 

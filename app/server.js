@@ -109,25 +109,24 @@ app.post('/getSimilarSongs', (req, res) => {
   let similarSongs = [];
   firebaseHelper.getFriendId(req.body.friend).then(result => {
     let p1 = firebaseHelper.getTopSongs(req.body.user);
+    console.log(result);
     let p2 = firebaseHelper.getTopSongs(result);
     Promise.all([p1,p2]).then(data=>{
       let data0Keys = Object.keys(data[0]);
-      console.log(data0Keys);
       for(genre in data[1]){
-        console.log(genre);
         if(data0Keys.includes(genre)){
           similarTags.push(genre);
           let genreKeys = Object.keys(data[0][genre]);
-          currentWeight += 5;
+          currentWeight += .5;
           for(song in data[1][genre]){
-            //console.log(data[1][genre][song].name);
-            if(genreKeys.includes(data[1][genre][song].name)){
-              console.log(data[1][genre][song].name);
-              currentWeight += 10;
+            if(genreKeys.includes(song)){
+              similarSongs.push(data[1][genre][song].name);
+              currentWeight += 1.5;
             }
           }
         }
       }
+
       data[2] = similarTags;
       data[3] = similarSongs;
       data[4] = currentWeight;
@@ -139,7 +138,7 @@ app.post('/getSimilarSongs', (req, res) => {
 app.post('/addFriends', (req, res) => {
   let newFriend = req.body.friend;
   let userID = req.body.uid;
-  db.ref('userProfile/' + userID + '/friends/' + newFriend).set({newFriend: "true"});
+  db.ref('userProfile/' + userID + '/friends/' + newFriend).set("true");
   res.send("Friend Added Successfully!")
 });
 
@@ -153,13 +152,4 @@ app.post('/updateEmail', (req, res) => {
 
 app.listen(3000, () => {
   console.log('Server started on http://localhost:3000/');
-  /*
-  db.ref('userProfile').once('value').then((snapshot) => {
-    snapshot.forEach((childId) => {
-      let keyId = childId.key;
-      let username = childId.val().username;
-      profile.updateTopSongs(keyId, username);
-      profile.updateFriends(keyId, username);
-    });
-  });*/
 });

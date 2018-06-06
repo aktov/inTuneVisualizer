@@ -176,19 +176,22 @@ with a friend to see how similar their music tastes are.
 						$('#similarTags').append('<p class="text_list">' + "Similar tags with " + friend + ": " + '</p>');
 						$('#similarTags').append('<p class="small">' + similarTagsBuffer + '</p>');
 					}else{
+						$('#similarTags').html('');
 						$('#similarTags').append('<p class="text_list">' + "No tags in common" + '</p>');
 					}
 
 					if(data[3].length > 0){
 						let similarSongsBuffer = "";
-						for(song in data[2]){
-							similarSongsBuffer += song;
+						for(song in data[3]){
+							similarSongsBuffer += data[3][song] + ', ';
+							console.log(data[3][song]);
 						}
-						$('#similarTags').html('');
-						$('#similarTags').append('<p class="text_list">' + "Similar tags with " + friend + ": " + '</p>');
-						$('#similarTags').append('<p class="small">' + similarSongsBuffer + '</p>');
+						$('#similarSongs').html('');
+						$('#similarSongs').append('<p class="song_list">' + "Similar songs with " + friend + ": " + '</p>');
+						$('#similarSongs').append('<p class="small">' + similarSongsBuffer + '</p>');
 					}else{
-						$('#similarTags').append('<p class="text_list">' + "No songs in common" + '</p>');
+						$('#similarSongs').html('');
+						$('#similarSongs').append('<p class="song_list">' + "No songs in common" + '</p>');
 					}
 					$('#friendsPieChart').show();
 					loadGauge(gaugeChart, data[4]);

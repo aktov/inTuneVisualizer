@@ -1,3 +1,10 @@
+/*
+File: server.js
+Purpose: Allows our app to hosted on a server. Also creates several functions that we call using ajax
+throughout our app. It links a lot of the backend functionality to our frontend through the use of 
+POST/GET requests.
+*/
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const firebase = require('firebase');

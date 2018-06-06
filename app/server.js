@@ -118,12 +118,14 @@ app.post('/getSimilarSongs', (req, res) => {
     })
   });
 })
-/*
-app.post('/topAlbums', (req, res) => {
 
+app.post('/addFriends', (req, res) => {
+  let newFriend = req.body.friend;
+  let userID = req.body.uid;
+  db.ref('userProfile/' + userID + '/friends/' + newFriend).set({newFriend: "true"});
+  res.send("Friend Added Successfully!")
+  });
 
-})
-*/
 
 app.listen(3000, () => {
   console.log('Server started on http://localhost:3000/');

@@ -9,7 +9,7 @@ Vanna Luu: I was the one to initially link the firebase to our application. I al
 
 # Source Code Files
 
-##HTML FILES
+## HTML FILES
 
 ### index.html
 This page is the landing page for our web app. It is just a sign in page that features our app name, login fields, and an option to create a new account.
@@ -56,6 +56,11 @@ This file allowed our site to be viewable.
 
 ### main.css
 This file contains the styling we used throughout our app. We also pulled some elements from bootstrap, and the stylings for our visualization came from the c3.css file.
+
+## Other Files
+
+### package.JSON
+This file contains a list of the packages that need to be installed in order to run our app on a webserver.
 
 ## Files we used but did not create ourselves:
 

@@ -1,7 +1,7 @@
 /*
 File: server.js
 Purpose: Allows our app to hosted on a server. Also creates several functions that we call using ajax
-throughout our app. It links a lot of the backend functionality to our frontend through the use of 
+throughout our app. It links a lot of the backend functionality to our frontend through the use of
 POST/GET requests.
 */
 
@@ -43,12 +43,16 @@ app.post('/signup', (req,res) => {
 
   firebase.auth().createUserWithEmailAndPassword(email, pw)
     .then((userRecord) => {
+      data = {
+        username: req.body.username,
+        uid: userRecord.uid
+      }
       db.ref('userProfile/' + userRecord.uid).set({
         username: req.body.username,
         name: req.body.name,
         email: req.body.email,
       });
-      res.sendStatus(201).end();
+      res.send(data);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -107,16 +111,18 @@ app.post('/getSimilarSongs', (req, res) => {
     let p1 = firebaseHelper.getTopSongs(req.body.user);
     let p2 = firebaseHelper.getTopSongs(result);
     Promise.all([p1,p2]).then(data=>{
-      for(genre in data[0]){
-        let data1Keys = Object.keys(data[1]);
-        if(data1Keys.includes(genre)){
+      let data0Keys = Object.keys(data[0]);
+      console.log(data0Keys);
+      for(genre in data[1]){
+        console.log(genre);
+        if(data0Keys.includes(genre)){
           similarTags.push(genre);
-          let genreKeys = Object.keys(data[1][genre]);
+          let genreKeys = Object.keys(data[0][genre]);
           currentWeight += 5;
-          for(song in data[0][genre]){
-            //console.log(data[0][genre][song]);
-            if(genreKeys.includes(data[0][genre][song])){
-              console.log(data[0][genre][song].name);
+          for(song in data[1][genre]){
+            //console.log(data[1][genre][song].name);
+            if(genreKeys.includes(data[1][genre][song].name)){
+              console.log(data[1][genre][song].name);
               currentWeight += 10;
             }
           }

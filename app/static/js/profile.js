@@ -1,8 +1,8 @@
 /*
 File: profile.js
 Purpose: Contains methods that utilize the last.fm API. These methods pull data from a user's last.fm
-accounts online, and imports that data into our database. Most of these methods either pull data about 
-the users: their friends, their top songs, or the methods pull information about their top songs, such 
+accounts online, and imports that data into our database. Most of these methods either pull data about
+the users: their friends, their top songs, or the methods pull information about their top songs, such
 as the tags for that song. These methods also help organize and restructure the data in our database to
 make it easier to visualize them in the future.
 

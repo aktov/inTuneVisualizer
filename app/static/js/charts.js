@@ -1,3 +1,10 @@
+/*
+File: chart.js
+Purpose: Contains methods that take create the visualizations in our app. This is done through use 
+of the c3 and d3 libraries, in conjunction with data that the last.fm API has fed into our database.
+
+*/
+
 function generateGauge(id){
   var chart = c3.generate({
     bindto: id,

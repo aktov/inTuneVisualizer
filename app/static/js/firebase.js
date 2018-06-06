@@ -1,3 +1,12 @@
+/*
+File: firebase.js
+Purpose: Thie file contains the methods and configurations of our firebase database. It create several
+global variables that are used to reference the database itself, allows access to the hash function to
+create unique user IDs, and to allow firebase to work overall. It also initializes our firebase and
+connects it to the web using the config settings. The methods in this file revolve around updating/
+retrieving the data in our database by requesting it from the last.fm APIs.
+*/
+
 const firebase = require('firebase');
 const lastfm = require('./lastfm.js');
 const Hash = require('./hash.js');
@@ -186,4 +195,5 @@ module.exports = {
       });
     });
   }
+
 }

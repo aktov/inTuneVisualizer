@@ -1,8 +1,15 @@
 <!doctype html>
 
+<!--
+File: settings.html
+Purpose: This is the settings page for our application. It allows users to change their login
+credentials in addition to their last.fm username. It will take data submitted through these
+text boxes and update the appropriate information in our database.
+-->
+
 <html>
 <head>
-	<title>Hi</title>
+	<title>inTune</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -57,19 +64,41 @@
 				$('#lastfm_div_change_email').hide();}
 		});
 
-		/*$('#showVisual2').click(() => {
-			//$.ajax({
-				const friends = Object.values(profiles)[sessionStorage.getItem("userIndex")][1]
-				var i;
-				for (i = 0; i < friends.length; i++)  {
-					console.log(1);
-					const p = document.createElement("P");
-					const text = document.createTextNode(friends[i]);
-					p.appendChild(text);
-					document.getElementById('allprofiles').appendChild(p);
-				}
-			//});
-		});*/
+		$('#lastfm_account').click(() => {
+			let newEmail = $('#lastfm_email').val();
+			let uid = sessionStorage.getItem('uid');
+			if ($('#lastfm_email').val() == "") {
+				$('#lastfm_account').text("Please enter an email");
+				window.setTimeout(function() {
+					$('#lastfm_account').text("Confirm");
+				}, 1500);
+			}
+			else {
+				console.log("clicked");
+				$.ajax({
+					type : 'POST',
+					url: '/updateEmail',
+					data: {
+						uid: uid,
+						email: newEmail,
+					},
+					success: (data) => {
+						console.log(data);
+					},
+					error: (code, message) => {
+						console.log('Error Message: ');
+					}
+				});
+			}
+		});
+
+
+		$('#help').click(() => {
+			if ($('#div_help').css('display') == 'none') {
+				$('#div_help').show();}
+			else {
+				$('#div_help').hide();}
+		});
 
 		$('#logout').click(() => {
 			forget();
@@ -94,6 +123,7 @@
 			<img src="../images/gear_white.png"> Account
 		</button>
 			<div id="div_account" class="w_backgrnd" style="margin: 20px; margin-top: 0px; display: none;">
+				<!--
 				<button id="account_change_email" class="row">
 					Change Email <img id="account_chev_change_email" class="chevron_down" src="../images/chevron.png" style="float:right">
 				</button>
@@ -101,6 +131,7 @@
 					<input id="account_email" class="textbox" type="text" placeholder="New Email" required>
 					<button id="account_account" style="margin-top: 0px;"> Confirm </button>
 				</div>
+				-->
 				<button id="change_pword" class="row">
 					Change Password <img id="account_chev_change_pword" class="chevron_down" src="../images/chevron.png" style="float:right">
 				</button>
@@ -117,7 +148,7 @@
 		</button>
 		<div id="div_lastfm" class="w_backgrnd" style="display: none;">
 			<button id="lastfm_change_email" class="row">
-				Change Email <img id="lastfm_chev_change_email" class="chevron_down" src="../images/chevron.png" style="float:right">
+				Change Account Email <img id="lastfm_chev_change_email" class="chevron_down" src="../images/chevron.png" style="float:right">
 			</button>
 			<div id="lastfm_div_change_email" style="margin: 0px; margin-top: 10px; display: none;">
 				<input id="lastfm_email" class="textbox" type="text" placeholder="New Email" required>
@@ -126,9 +157,19 @@
 		</div>
 
 		<!-- help -->
-		<button class="row">
+		<button id="help" class="row">
 			<img src="../images/help.png"> Help
 		</button>
+		<div id="div_help" class="w_backgrnd" style="display: none;">
+			<p id="help_text" class="text_list">
+				Send an email to
+			</p>
+			<p id="help_text">
+				cogs121abjv@gmail.com
+			<p id="help_text" class="text_list">
+				with details regarding your issue or questions and we'd be happy to respond!
+			</p>
+		</div>
 
 		<br>
 		<br>

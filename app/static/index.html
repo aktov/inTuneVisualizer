@@ -1,8 +1,15 @@
 <!doctype html>
 
+<!--
+File: index.html
+Purpose: this is the landing age for our app. It features our app's name, the login text fields, and
+an option to create a new user. It connects the login to an authentication function in our database.
+If a login is invalid, it will print out the appropriate error message.
+-->
+
 <html>
 <head>
-	<title>Hi</title>
+	<title>inTune</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -94,14 +101,14 @@
 		</p>
 
 		<button id="signin"> SIGN IN </button>
-	</div>
-	<div>
-		<button class="clear"> Forgot password? </button>
-	</div>
-	<div>
-		<a href='/views/signup.html'>
-			<button class="clear"> Sign up </button>
-		</a>
+
+		<div style="width: 100%; margin: 0px;">
+			<button class="clear" style="margin-right: 35px"> Forgot password? </button>
+			<a href='/views/signup.html'>
+				<button class="clear" style="margin-left: 35px"> Sign up </button>
+			</a>
+		</div>
+
 	</div>
 
 	<!-- Bottom text -->

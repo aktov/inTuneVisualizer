@@ -57,11 +57,11 @@ module.exports = {
     return new Promise((resolve, reject) => {
       let promises = [];
       for(friend in friendList.user){
-        promises.push(module.exports.userExists(friendList.user[friend].name));/*
+        promises.push(module.exports.userExists(friendList.user[friend].name));
         module.exports.friendExists(userId, friendList.user[friend].name).then(result => {
           db.ref('userProfile/' + userId + '/friends/' + result.username).set('true');
         }, error => {
-        });*/
+        });
       }
       Promise.all(promises).then(users => {
         let newUsers = [];
@@ -114,7 +114,6 @@ module.exports = {
           resolve({username: username, exists: true})
         }else{
           resolve({username: username, exists: false});
-          console.log(username + " does not exist");
         }
       })
     })

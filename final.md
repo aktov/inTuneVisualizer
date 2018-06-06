@@ -1,4 +1,4 @@
-#Team Members
+# Team Members
 Alex Tov: I focused on creating and designing the front end for this app. I wanted the app to look clean, simple, and with relatively easy going colors. I coded the css pages we used for the overall design of the app, but not the stylings required for our visualizations. I also helped to create markdown files, test our application, and did a lot of the earlier work on our first prototypes, before we moved into firebase and the last.fm API.
 
 Brandon Nguyen: I focused on looking for bugs/issues in functionality and design. I did some work on the design of the app, but it was mostly minor details and not the overall look. I also helped to program a couple of the backend functions of the site. Additionally, I helped to create the markdown files, did a lot of testing, and tried to manage the project as best as I could by updating the group on the status of our project, and what still needed to be done.

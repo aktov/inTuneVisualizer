@@ -26,7 +26,7 @@ This page is a simple settings page. It allows users to update their account cre
 ### signup.html
 This page is a new user creation page. It features text fields that allows users to create new profiles on our app. 
 
-###JS Files
+## JS Files
 
 ### chart.js
 This file features the methods for data visualization that one our team members (Jason) wrote. It also uses some methods in the c3 js file that we did not compile ourselves.

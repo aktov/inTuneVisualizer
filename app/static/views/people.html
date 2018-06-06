@@ -17,26 +17,6 @@
 
 	$(document).ready(() => {
 		console.log("Logged in as: " + sessionStorage.getItem("user"));
-		//updateFriends(uid, user)
-		{
-			const uid = sessionStorage.getItem('uid');
-			console.log(sessionStorage.getItem('uid'));
-			const user = sessionStorage.getItem('user')
-			$.ajax({
-				type : 'GET',
-				url: '/updateFriends',
-				data: {
-					uid: uid,
-					user: user,
-				},
-				success: (data) => {
-					console.log(data);
-				},
-				error: (code, message) => {
-					console.log('Error Message: ' + message);
-				}
-			})
-		}
 
 		//getFriends
 		$('#friend_show').click(() =>{
@@ -115,7 +95,7 @@
 		<div id="div_add" class="w_backgrnd" style="display: none;">
 			<div style="margin: 0px; margin-top: 10px;">
 				<input id="lastfm_email" class="textbox" type="text" placeholder="Username" required>
-				<button id="lastfm_account" style="margin-top: 0px;"> Add </button>
+				<button id="lastfm_account" onclick="addFriend()" style="margin-top: 0px;"> Add </button>
 			</div>
 		</div>
 
@@ -137,4 +117,24 @@
 	</div>
 
 </body>
+
+<script>
+  function addFriend() {
+    let newFriend = $('#lastfm_email').val();
+      $.ajax({
+        type: 'POST',
+        url: '/addFriend',
+        data: {
+          friend: newFriend,
+        },
+        success: (data) => {
+          console.log(data);
+        },
+        error: (code, message) => {
+          console.log('Error');
+        }
+      });
+  }
+</script>
+
 </html>

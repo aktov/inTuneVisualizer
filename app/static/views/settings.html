@@ -57,20 +57,6 @@
 				$('#lastfm_div_change_email').hide();}
 		});
 
-		/*$('#showVisual2').click(() => {
-			//$.ajax({
-				const friends = Object.values(profiles)[sessionStorage.getItem("userIndex")][1]
-				var i;
-				for (i = 0; i < friends.length; i++)  {
-					console.log(1);
-					const p = document.createElement("P");
-					const text = document.createTextNode(friends[i]);
-					p.appendChild(text);
-					document.getElementById('allprofiles').appendChild(p);
-				}
-			//});
-		});*/
-
 		$('#logout').click(() => {
 			forget();
 			window.location.href = '/index.html';

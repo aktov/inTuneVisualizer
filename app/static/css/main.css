@@ -1,3 +1,10 @@
+/*
+File: main.css
+Purpose: Contains stylings that we use across our web app. It includes color choices, text fonts,
+text sizes, margins, layout options and other important styling features.
+
+*/
+
 @import url('https://fonts.googleapis.com/css?family=Questrial');
 
 body {

@@ -2,7 +2,7 @@
 
 <html>
 <head>
-	<title>Hi</title>
+	<title>inTune</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -61,6 +61,7 @@
 
 		//getFriends
 		$('#getTopTracks').click(() =>{
+			$('#yourName').html('<p class="text_list">' + "Your Tags" + '</p>');
 			console.log('Submit POST request to lastfm for friends');
 			const uid = sessionStorage.getItem('uid');
 			console.log('uid: ' + sessionStorage.getItem('uid'));
@@ -107,13 +108,19 @@
 						user: uid,
 					},
 					success: (data) => {
-						let buffer="";
+						$('#friendList').html('');
 						let keys = Object.keys(data)
 						for(key in keys){
 							console.log(keys[key]);
-							buffer += "<li>" + keys[key] +"</li>";
+							let btn = document.createElement("button");
+							btn.classList.add('text_like');
+							btn.onclick = function() {
+								$('#lastfm_email').val(this.textContent);
+							}
+							let text = document.createTextNode(keys[key]);
+							btn.appendChild(text);
+							$('#friendList').append(btn);
 						}
-						$('#friendList').html(buffer);
 					},
 					error: (code, message) => {
 						console.log('Error Message: ' + message);
@@ -133,6 +140,7 @@
 		});
 
 		$('#lastfm_account').click(() => {
+			$('#friendsName').html('<p class="text_list">' + $('#lastfm_email').val() + "'s Tags" + '</p>');
 			let friend = document.getElementById('lastfm_email').value;
 			console.log(friend);
 			const uid = sessionStorage.getItem('uid');
@@ -158,9 +166,11 @@
 						for(tag in data[2]){
 							similarTagsBuffer += data[2][tag] + ", ";
 						}
-						$('#similarTags').html("Similar tags with " + friend + ": " + similarTagsBuffer);
+						$('#similarTags').html('');
+						$('#similarTags').append('<p class="text_list">' + "Similar tags with " + friend + ": " + '</p>');
+						$('#similarTags').append('<p class="small">' + similarTagsBuffer + '</p>');
 					}else{
-						$('#similarTags').html("No tags in common");
+						$('#similarTags').append('<p class="text_list">' + "No tags in common" + '</p>');
 					}
 
 					if(data[3].length > 0){
@@ -168,9 +178,11 @@
 						for(song in data[2]){
 							similarSongsBuffer += song;
 						}
-						$('#similarSongs').html("Similar songs with " + friend + ": " + similarTagsBuffer);
+						$('#similarTags').html('');
+						$('#similarTags').append('<p class="text_list">' + "Similar tags with " + friend + ": " + '</p>');
+						$('#similarTags').append('<p class="small">' + similarSongsBuffer + '</p>');
 					}else{
-						$('#similarSongs').html("No songs in common");
+						$('#similarTags').append('<p class="text_list">' + "No songs in common" + '</p>');
 					}
 					$('#friendsPieChart').show();
 					loadGauge(gaugeChart, data[4]);
@@ -181,8 +193,12 @@
 					console.log('Error Message: ' + message);
 				}
 			});
+
+			// scrolling animation
+			$('html, body').animate({scrollTop: $('#friendsName').offset().top}, 500);
 		})
 	});
+
 	</script>
 </head>
 
@@ -203,20 +219,20 @@
 
 		<!-- add friends -->
 		<button id="getFriendTracks" class="row">
-			<img src="../images/note_friend.png"> View Your Friend's Tags
+			<img src="../images/people.png"> View Your Friend's Tags
 			<img id="chev_friend" class="chevron_down" src="../images/chevron.png" style="float:right">
 		</button>
-		<div id="pieChart"></div>
 
 		<div id="div_add" class="w_backgrnd" style="display: none;">
 			<div style="margin: 0px; margin-top: 10px;">
-				<ul>
 					<div id="friendList"></div>
-				</ul>
 				<input id="lastfm_email" class="textbox" type="text" placeholder="Username" required>
 				<button id="lastfm_account" style="margin-top: 0px;"> View </button>
 			</div>
 		</div>
+		<div id="yourName"> <p class="text" style="text-align: left;"> </p> </div>
+		<div id="pieChart"></div>
+		<div id="friendsName"> <p class="text" style="text-align: left;"> </p> </div>
 		<div id="friendsPieChart"></div>
 		<div id="gaugeChart"></div>
 		<div id="similarTags"></div>

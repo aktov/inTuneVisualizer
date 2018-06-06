@@ -124,7 +124,14 @@ app.post('/addFriends', (req, res) => {
   let userID = req.body.uid;
   db.ref('userProfile/' + userID + '/friends/' + newFriend).set({newFriend: "true"});
   res.send("Friend Added Successfully!")
-  });
+});
+
+app.post('/updateEmail', (req, res) => {
+  let newEmail = req.body.email;
+  let userID = req.body.uid;
+  db.ref('userProfile/' + userID).update({email: newEmail});
+  res.send("Email Updated Successfully!")
+});
 
 
 app.listen(3000, () => {

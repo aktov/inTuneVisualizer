@@ -63,6 +63,13 @@ p.text {
   font-size: 20px;
 }
 
+p.text_list {
+  font-size: 20px;
+  text-align: left;
+  margin-left: 20px;
+  margin-top:10px;
+}
+
 p.small {
   font-size: 15px;
 }
@@ -179,6 +186,21 @@ button.row img.chevron_up {
   margin-top: 10px;
 
   max-height: 13px;
+}
+
+button.text_like {
+  width: 100%;
+  height: 40px;
+  border-bottom: solid;
+  border-width: 0px;
+  margin: 0px;
+
+  font-family: Questrial;
+  font-size: 20px;
+  text-align: left;
+
+  background-color: #f5f5f5;
+  color: black;
 }
 
 

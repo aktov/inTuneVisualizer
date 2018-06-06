@@ -2,7 +2,7 @@
 
 <html>
 <head>
-	<title>Hi</title>
+	<title>inTune</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -57,6 +57,42 @@
 				$('#lastfm_div_change_email').hide();}
 		});
 
+		$('#lastfm_account').click(() => {
+			let newEmail = $('#lastfm_email').val();
+			let uid = sessionStorage.getItem('uid');
+			if ($('#lastfm_email').val() == "") {
+				$('#lastfm_account').text("Please enter an email");
+				window.setTimeout(function() {
+					$('#lastfm_account').text("Confirm");
+				}, 1500);
+			}
+			else {
+				console.log("clicked");
+				$.ajax({
+					type : 'POST',
+					url: '/updateEmail',
+					data: {
+						uid: uid,
+						email: newEmail,
+					},
+					success: (data) => {
+						console.log(data);
+					},
+					error: (code, message) => {
+						console.log('Error Message: ');
+					}
+				});
+			}
+		});
+
+
+		$('#help').click(() => {
+			if ($('#div_help').css('display') == 'none') {
+				$('#div_help').show();}
+			else {
+				$('#div_help').hide();}
+		});
+
 		$('#logout').click(() => {
 			forget();
 			window.location.href = '/index.html';
@@ -80,6 +116,7 @@
 			<img src="../images/gear_white.png"> Account
 		</button>
 			<div id="div_account" class="w_backgrnd" style="margin: 20px; margin-top: 0px; display: none;">
+				<!--
 				<button id="account_change_email" class="row">
 					Change Email <img id="account_chev_change_email" class="chevron_down" src="../images/chevron.png" style="float:right">
 				</button>
@@ -87,6 +124,7 @@
 					<input id="account_email" class="textbox" type="text" placeholder="New Email" required>
 					<button id="account_account" style="margin-top: 0px;"> Confirm </button>
 				</div>
+				-->
 				<button id="change_pword" class="row">
 					Change Password <img id="account_chev_change_pword" class="chevron_down" src="../images/chevron.png" style="float:right">
 				</button>
@@ -112,9 +150,19 @@
 		</div>
 
 		<!-- help -->
-		<button class="row">
+		<button id="help" class="row">
 			<img src="../images/help.png"> Help
 		</button>
+		<div id="div_help" class="w_backgrnd" style="display: none;">
+			<p id="help_text" class="text_list">
+				Send an email to
+			</p>
+			<p id="help_text">
+				cogs121abjv@gmail.com
+			<p id="help_text" class="text_list">
+				with details regarding your issue or questions and we'd be happy to respond!
+			</p>
+		</div>
 
 		<br>
 		<br>

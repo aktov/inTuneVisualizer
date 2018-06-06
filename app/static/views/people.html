@@ -95,7 +95,7 @@
 		<div id="div_add" class="w_backgrnd" style="display: none;">
 			<div style="margin: 0px; margin-top: 10px;">
 				<input id="lastfm_email" class="textbox" type="text" placeholder="Username" required>
-				<button id="lastfm_account" onclick="addFriend()" style="margin-top: 0px;"> Add </button>
+				<button id="lastfm_account" onclick="addFriends()" style="margin-top: 0px;"> Add </button>
 			</div>
 		</div>
 
@@ -119,13 +119,15 @@
 </body>
 
 <script>
-  function addFriend() {
+  function addFriends() {
     let newFriend = $('#lastfm_email').val();
+    let uid = sessionStorage.getItem('uid');
       $.ajax({
         type: 'POST',
-        url: '/addFriend',
+        url: '/addFriends',
         data: {
-          friend: newFriend,
+        	uid: uid,
+          	friend: newFriend,
         },
         success: (data) => {
           console.log(data);

@@ -1,5 +1,12 @@
 <!doctype html>
 
+<!--
+File: people.html
+Purpose: This page is similar to a user profile page. The functions on this page allow a user to
+view a list of their friends, or add a new friend. The friends displayed/added through this page
+are not friends from last.fm, they are actually friends from within the app.
+-->
+
 <html>
 <head>
 	<title>Hi</title>
@@ -14,63 +21,42 @@
 	<script src="/js/sessionstorage.js"> </script>
 
 	<script type="text/javascript">
-
 	$(document).ready(() => {
 		console.log("Logged in as: " + sessionStorage.getItem("user"));
-		let p = document.getElementById("username");
-		let username = sessionStorage.getItem("user");
-		let text = document.createTextNode(username);
-		p.appendChild(text);
-		// $('#showVisual2').click(() => {
-		// 	//$.ajax({
-		// 		const friends = Object.values(profiles)[sessionStorage.getItem("userIndex")][1]
-		// 		var i;
-		// 		for (i = 0; i < friends.length; i++)  {
-		// 			console.log(1);
-		// 			const p = document.createElement("P");
-		// 			const text = document.createTextNode(friends[i]);
-		// 			p.appendChild(text);
-		// 			document.getElementById('allprofiles').appendChild(p);
-		// 		}
-		// 	//});
-		// });
-
+		$('#name').text(sessionStorage.getItem("user"));
+		function refreshFriendsList() {
+			console.log('Submit POST request to lastfm for friends');
+			const uid = sessionStorage.getItem('uid');
+			console.log(sessionStorage.getItem('uid'));
+			const user = sessionStorage.getItem('user')
+			$.ajax({
+				type : 'POST',
+				url: '/getFriends',
+				data: {
+					user: uid
+				},
+				success: (data) => {
+					console.log(data);
+					$('#div_show').html('');
+					Object.keys(data).forEach((name) => {
+						$('#div_show').append('<p class="text_list">' + name + '</p>');
+					});
+				},
+				error: (code, message) => {
+					console.log('Error Message: ' + message);
+				}
+			})
+		}
 		//getFriends
 		$('#friend_show').click(() => {
+			refreshFriendsList();
 			if ($('#div_show').css('display') == 'none') {
 				$('#chev_friend_show').attr('class', 'chevron_up');
-				$('#div_show').show();
-				console.log('Submit POST request to lastfm for friends');
-				const uid = sessionStorage.getItem('uid');
-				$.ajax({
-					type : 'POST',
-					url: '/getFriends',
-					data: {
-						user: uid
-					},
-					success: (data) => {
-						const friends = Object.keys(data);
-						if(sessionStorage.friends != friends){
-							sessionStorage.friends = friends;
-							var i;
-							for (i = 0; i < friends.length; i++)  {
-								const p = document.createElement("P");
-								const text = document.createTextNode(friends[i]);
-								p.appendChild(text);
-								document.getElementById('allprofiles').appendChild(p);
-							}
-						}
-					},
-					error: (code, message) => {
-						console.log('Error Message: ' + message);
-					}
-				});
-			} else {
+				$('#div_show').show();}
+			else {
 				$('#chev_friend_show').attr('class', 'chevron_down');
-				$('#div_show').hide();
-			}
+				$('#div_show').hide();}
 		});
-
 		$('#friend_add').click(() => {
 			if ($('#div_add').css('display') == 'none') {
 				$('#chev_friend_add').attr('class', 'chevron_up');
@@ -79,6 +65,38 @@
 				$('#chev_friend_add').attr('class', 'chevron_down');
 				$('#div_add').hide();}
 		});
+		$('#lastfm_account').click(() => {
+	    let newFriend = $('#lastfm_email').val();
+			if (newFriend == "") {
+				$('#lastfm_account').text("Please enter a username");
+				window.setTimeout(function() {
+					$('#lastfm_account').text("Add");
+				}, 1500);
+			}
+			else {
+		    let uid = sessionStorage.getItem('uid');
+		      $.ajax({
+		        type: 'POST',
+		        url: '/addFriends',
+		        data: {
+		        	uid: uid,
+		          friend: newFriend,
+		        },
+		        success: (data) => {
+		          console.log(data);
+		        },
+		        error: (code, message) => {
+		          console.log('Error');
+		        }
+		      });
+					refreshFriendsList();
+					$('#lastfm_account').text("Friend Added!");
+					window.setTimeout(function() {
+						$('#lastfm_email').val("");
+						$('#lastfm_account').text("Add");
+					}, 1500);
+				}
+	  })
 	});
 	</script>
 </head>
@@ -90,11 +108,13 @@
 
 		<p class="spacer" style="margin-top: 25px"> </p>
 
+		<!--
 		<div id="profile">
 			<img src="../images/don.jpg">
 		</div>
+		-->
 
-		<p id="username"></p>
+		<p id="name"> </p>
 	</div>
 
 	<div style="margin: 0px;">
@@ -117,6 +137,7 @@
 				<input id="lastfm_email" class="textbox" type="text" placeholder="Username" required>
 				<button id="lastfm_account" style="margin-top: 0px;"> Add </button>
 			</div>
+			<div id="friend_added" class="w_backgrnd" style="display: none;"></div>
 		</div>
 
 
@@ -137,4 +158,6 @@
 	</div>
 
 </body>
+
+
 </html>

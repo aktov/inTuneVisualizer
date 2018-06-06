@@ -1,0 +1,24 @@
+1. Make sure the app is open and that you are connected to the internet.
+
+2. If returning user, enter in your credentials.
+
+3. If a new user, click sign-up.
+
+4. Enter in data to create an account, make sure you use a real last.fm account username.
+   Once completed, submit the form. 
+
+5. On the landing page, you will see options to create visuals, click "View your top tags"
+   To see a friends, click "View your friend's tags". You can type in a name of a user
+   on last.fm to see their tags. Once both charts come up, you can scroll down to see your
+   compatibility with that friend based on music listening habits.
+
+	If the visuals do not pop up, go to settings, logout and re-login
+
+6. Go to the people page, you can view your friends, or you can add a friend. Friends you
+   add will appear in your friends list on the people page and on the home page when you
+   attempt to view your friends tags.
+
+7. Return to the home page, and attempt to run through Step 5 again. You'll notice that
+   your friends have been updated.
+
+8. On the settings page, you can update your last.fm email.

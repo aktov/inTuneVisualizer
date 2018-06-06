@@ -41,7 +41,6 @@ app.post('/signup', (req,res) => {
         name: req.body.name,
         email: req.body.email,
       });
-      lastfm.updateTopTracks(req.body.username);
       res.sendStatus(201).end();
     })
     .catch((error) => {
@@ -51,7 +50,7 @@ app.post('/signup', (req,res) => {
       }else if(errorCode == 'auth/invalid-email'){
         console.log('Invalid email');
       }else{
-        console.log(error.message);
+        console.log(error.message)
       }
       res.send(error);
     });
@@ -82,6 +81,11 @@ app.post('/topTracks', (req, res) => {
 });
 
 app.post('/getFriends', (req, res) => {
+  firebaseHelper.getUsername(req.body.user).then(result => {
+    return result;
+  }).then(username => {
+    profile.updateFriends(req.body.user, username);
+  })
   firebaseHelper.getFriends(req.body.user).then(result => {
     res.send(result);
   });

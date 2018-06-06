@@ -51,9 +51,16 @@ module.exports = {
   updateFriends : function(userId, user){
     lastfm.getFriends(userId, user).then(result => {
       if(result.friends){
-        firebaseHelper.updateFriends(userId, result.friends);
+        firebaseHelper.updateFriends(userId, result.friends).then(newUsers => {
+          for(user in newUsers){
+            let hash = firebaseHelper.createNewUser(newUsers[user]);
+            module.exports.updateTopSongs(hash, newUsers[user]);
+          }
+        })
       }else{
       }
+    }, error => {
+      console.log(error);
     })
   },
 

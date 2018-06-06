@@ -16,6 +16,20 @@ firebase.initializeApp(config);
 const db = firebase.database();
 
 module.exports = {
+
+// ----------------------- Create --------------------------//
+
+  createNewUser : function(username){
+    let userHash = Hash.hash(username);
+    db.ref('UserHashes/' + username).set(userHash);
+    db.ref('userProfile/' + userHash).set({
+      username: username
+    });
+    return userHash;
+  },
+
+// ----------------------- Update --------------------------//
+
   updateTopSongs : function(userId, songList){
     songList.forEach(song => {
       let songSize = Object.keys(song).length;
@@ -30,25 +44,30 @@ module.exports = {
     });
   },
 
-  songExists : function(userId, song){
+  updateFriends : function(userId, friendList){
     return new Promise((resolve, reject) => {
-      let hashId = Hash.hash(JSON.stringify({song: song.name, artist: song.artist.name}));
-      db.ref('userProfile/' +userId).once('value').then((snapshot) => {
-        if(snapshot.val().hasOwnProperty('songs')){
-          if(snapshot.val().songs.hasOwnProperty(hashId)){
-            reject({exists: true});
+      let promises = [];
+      for(friend in friendList.user){
+        promises.push(module.exports.userExists(friendList.user[friend].name));/*
+        module.exports.friendExists(userId, friendList.user[friend].name).then(result => {
+          db.ref('userProfile/' + userId + '/friends/' + result.username).set('true');
+        }, error => {
+        });*/
+      }
+      Promise.all(promises).then(users => {
+        let newUsers = [];
+        for(user in users){
+          if(users[user].exists){
           }else{
-            resolve({hashId: hashId});
+            newUsers.push(users[user].username);
           }
-        }else{
-          db.ref('userProfile/' + userId + '/songs').set({
-            length : 0
-          });
-          resolve({hashId: hashId});
         }
-      });
-    });
+        resolve(newUsers);
+      }, error => { reject();});
+    })
   },
+
+// ----------------------- Push --------------------------//
 
   pushSong : function(userId, song, hashId){
     let tags = song.tags;
@@ -77,14 +96,39 @@ module.exports = {
     db.ref('userProfile/' + userId +'/songs/' + hashId).child(tag).set("true");
   },
 
-  updateFriends : function(userId, friendList){
-    for(friend in friendList.user){
-      console.log(friendList.user[friend]);
-      module.exports.friendExists(userId, friendList.user[friend].name).then(result => {
-        db.ref('userProfile/' + userId + '/friends/' + friendList.user[friend].name).set('true');
-      }, error => {
+// ----------------------- Checks --------------------------//
+
+  userExists : function(username){
+    return new Promise((resolve,reject) => {
+      db.ref('UserHashes').once('value').then(snapshot => {
+        if(snapshot.val().hasOwnProperty(username)){
+          resolve({username: username, exists: true})
+        }else{
+          resolve({username: username, exists: false});
+          console.log(username + " does not exist");
+        }
       })
-    }
+    })
+  },
+
+  songExists : function(userId, song){
+    return new Promise((resolve, reject) => {
+      let hashId = Hash.hash(JSON.stringify({song: song.name, artist: song.artist.name}));
+      db.ref('userProfile/' +userId).once('value').then((snapshot) => {
+        if(snapshot.val().hasOwnProperty('songs')){
+          if(snapshot.val().songs.hasOwnProperty(hashId)){
+            reject({exists: true});
+          }else{
+            resolve({hashId: hashId});
+          }
+        }else{
+          db.ref('userProfile/' + userId + '/songs').set({
+            length : 0
+          });
+          resolve({hashId: hashId});
+        }
+      });
+    });
   },
 
   friendExists : function(userId, friendUsername){
@@ -94,7 +138,7 @@ module.exports = {
           if(snapshot.val().friends.hasOwnProperty(friendUsername)){
             reject({exists: true});
           }else{
-            resolve({exists: false});
+            resolve({username: friendUsername});
           }
         }else{
           resolve({exists: false});
@@ -102,6 +146,8 @@ module.exports = {
       })
     });
   },
+
+// ----------------------- Getters --------------------------//
 
   getFriends : function(userId){
     return new Promise((resolve, reject) => {

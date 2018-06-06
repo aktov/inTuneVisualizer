@@ -33,13 +33,13 @@
 		// });
 
 		//getFriends
-/*		$('#friend_show').click(() =>{
+		$('#friend_show').click(() =>{
 			console.log('Submit POST request to lastfm for friends');
 			const uid = sessionStorage.getItem('uid');
 			console.log(sessionStorage.getItem('uid'));
 			$.ajax({
 				type : 'POST',
-				url: '/topTracks',
+				url: '/getFriends',
 				data: {
 					user: uid
 				},
@@ -51,7 +51,7 @@
 				}
 			})
 		});
-*/
+
 
 		$('#friend_show').click(() => {
 			if ($('#div_show').css('display') == 'none') {
@@ -59,16 +59,8 @@
 				$('#div_show').show();}
 			else {
 				$('#chev_friend_show').attr('class', 'chevron_down');
-				$('#div_show').hide();}
-			//$.ajax({
-				const friends = Object.values(profiles)[sessionStorage.getItem("userIndex")][1]
-				var i;
-				for (i = 0; i < friends.length; i++)  {
-					console.log(1);
-					const p = document.createElement("P");
-					const text = document.createTextNode(friends[i]);
-					p.appendChild(text);
-					document.getElementById('allprofiles').appendChild(p);
+				$('#div_show').hide();
+			}
 				}
 			//});
 		});

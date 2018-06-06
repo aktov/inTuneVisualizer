@@ -12,6 +12,8 @@
    on last.fm to see their tags. Once both charts come up, you can scroll down to see your
    compatibility with that friend based on music listening habits.
 
+	If the visuals do not pop up, go to settings, logout and re-login
+
 6. Go to the people page, you can view your friends, or you can add a friend. Friends you
    add will appear in your friends list on the people page and on the home page when you
    attempt to view your friends tags.
